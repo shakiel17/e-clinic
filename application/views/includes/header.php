@@ -1,35 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="<?=base_url();?>design/images/clinic_logo.png" type="">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title> Hermosilla Dental Clinic </title>
+  <title>e-Clinic | MedMatrix e-Health Solutions, Inc.</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="<?=base_url();?>design/css/bootstrap.css" />
+  <!-- Favicons -->
+  <link href="<?=base_url();?>design/assets/img/favicon.png" rel="icon">
+  <link href="<?=base_url();?>design/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- Vendor CSS Files -->
+  <link href="<?=base_url();?>design/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- font awesome style -->
-  <link href="<?=base_url();?>design/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Template Main CSS File -->
+  <link href="<?=base_url();?>design/assets/css/style.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="<?=base_url();?>design/css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="<?=base_url();?>design/css/responsive.css" rel="stylesheet" />
-
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
