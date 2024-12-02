@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $host= $_SERVER['HTTP_HOST'];
-$config['base_url'] = 'http://'.$host.'/dentalclinic';
+$config['base_url'] = 'http://'.$host.'/e-clinic';
 
 /*
 |--------------------------------------------------------------------------
