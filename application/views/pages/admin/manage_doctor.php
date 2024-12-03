@@ -37,9 +37,7 @@
                     $x=1;
                     foreach($items as $item){
                         $status = $item['status'];
-                        if($status == "Active"){
-
-                        }
+                        if($status == "Active"){ }
                 ?>
                 <tr>
                     <td class="text-center" vlign="center" style="width:5%;"><?=$x.".";?></td>
