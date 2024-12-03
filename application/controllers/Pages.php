@@ -3,6 +3,7 @@ ini_set('max_execution_time', 0);
 ini_set('memory_limit','2048M');
 date_default_timezone_set('Asia/Manila');
     class Pages extends CI_Controller{
+// start of user functions
         public function index(){
             $page = "index";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
@@ -65,6 +66,7 @@ date_default_timezone_set('Asia/Manila');
             $this->load->view('includes/modal');           
             $this->load->view('includes/footer');
         }
+    
         public function user_logout(){
             $this->session->unset_userdata('username');
             $this->session->unset_userdata('apcode');
@@ -108,5 +110,83 @@ date_default_timezone_set('Asia/Manila');
                 
             }
         }
+// end of user functions
+
+// start of admin functions
+public function adminmain(){
+    $page = "main";
+    if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+        show_404();
+    }                  
+    if($this->session->admin_login){
+
+    }else{
+        redirect(base_url()."admin");
+    }
+    $data['title'] = "Patient List";
+    $apcode=$this->session->apcode;
+    $data['items'] = $this->Clinic_model->getAllPatientByDoc($apcode);
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/'.$page,$data);          
+    $this->load->view('includes/admin/modal');           
+    $this->load->view('includes/footer');
+}
+
+public function admin(){
+    $page = "index";
+    if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+        show_404();
+    }                  
+    if($this->session->admin_login){
+        redirect(base_url()."adminmain");
+    }
+    $this->load->view('pages/admin/'.$page);                     
+}
+
+public function admin_authentication(){
+    $user=$this->Clinic_model->admin_authenticate();
+    if($user){
+        $userdata=array(
+            'username' => $user['username'],
+            'fullname' => $user['fullname'],
+            'admin_login' => true
+        );
+        $this->session->set_userdata($userdata);
+        redirect(base_url()."adminmain");
+    }else{
+        $this->session->set_flashdata('error','Invalid password!');
+        redirect(base_url()."admin");
+    }            
+}
+
+public function admin_logout(){
+    $this->session->unset_userdata('username');
+    $this->session->unset_userdata('fullname');
+    $this->session->unset_userdata('admin_login');
+    redirect(base_url()."admin");
+}
+
+public function manage_doctor(){
+    $page = "manage_doctor";
+    if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+        show_404();
+    }                  
+    if($this->session->admin_login){
+
+    }else{
+        redirect(base_url()."admin");
+    }
+    $data['title'] = "Doctor List";
+    $data['items'] = $this->Clinic_model->getAllDoctor();
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/'.$page,$data);          
+    $this->load->view('includes/admin/modal');           
+    $this->load->view('includes/footer');
+}
+// end of admin functions
 }
 ?>

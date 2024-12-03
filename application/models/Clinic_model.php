@@ -42,5 +42,20 @@
             $result=$this->db->query("SELECT pp.* FROM admission a INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno WHERE a.ap='$code' GROUP BY a.patientidno ORDER BY pp.lastname ASC,pp.firstname ASC");
             return $result->result_array();
         }
+
+        public function admin_authenticate(){
+            $username=$this->input->post('username');
+            $password=$this->input->post('password');
+            $check=$this->db->query("SELECT * FROM `admin` WHERE username='$username' AND `password`='$password'");
+            if($check->num_rows() > 0 ){
+                return $check->row_array();
+            }else{
+                return false;
+            }
+        }
+        public function getAllDoctor(){
+            $result=$this->db->query("SELECT * FROM docfile ORDER BY lastname ASC");
+            return $result->result_array();
+        }
     }
 ?>
