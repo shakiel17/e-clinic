@@ -18,7 +18,7 @@
               <table width="100%" border="0">
                   <tr>
                     <td><h5 class="card-title">List of Doctor</h5></td>
-                    <td align="right"><a href="<?=base_url();?>new_doctor" class="btn btn-primary btn-sm rounded-pill"><i class="bi bi-plus-circle"></i> New Doctor</td></td>
+                    <!-- <td align="right"><a href="<?=base_url();?>new_doctor" class="btn btn-primary btn-sm rounded-pill"><i class="bi bi-plus-circle"></i> New Doctor</td></td> -->
                   </tr>
               </table>              
               <!-- Table with stripped rows -->
@@ -27,10 +27,9 @@
                   <tr>
                     <th class="text-center">No.</th>
                     <th class="text-start">Name</th>
-                    <th class="text-center">Specialization</th>
-                    <th class="text-center">PHIC No.</th>                    
+                    <th class="text-center">PHIC No./TIN</th>                    
                     <th class="text-center">Email Add.</th>
-                    <th class="text-center">Status</th>
+                    <th class="text-start">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,21 +42,16 @@
                         }
                 ?>
                 <tr>
-                    <td class="text-center align-items-center"><?=$x.".";?></td>
-                    <td class="text-start" style="border:1px solid red">
-                        <div class="avatar">
-                            <img 
-                                src="<?= base_url('design/assets/img/profile-img.jpg'); ?>" 
-                                alt="Profile Image" 
-                                class="profile"
-                                style="width: 40px; height: 40px; border-radius: 50%;"
-                            >
+                    <td class="text-center" vlign="center" style="width:5%;"><?=$x.".";?></td>
+                    <td class="text-start" style="width:55%">
+                        <div class="row d-flex justify-content-start align-items-center">
+                            <img src="<?=base_url('design/assets/img/profile-img.jpg'); ?>" alt="Profile Image" class="avatar" style="width:80px; height: auto; border-radius:50%;">
+                            <div class="profile" style="width:70%;"><span class="fw-bold fs-5"><?=$item['name'];?></span><br><span class="fs-6"><?=$item['code'];?> / </span><span class="fs-6"><?=$item['specialization'];?></span></div>
                         </div>
                     </td>
-                    <td class="text-center"><?=$item['specialization'];?></td>
-                    <td class="text-center"><?=$item['phicacc'];?></td>
-                    <td class="text-center"><?=$item['emailaddress'];?></td>
-                    <td class="text-center align-items-center">
+                    <td class="text-center" style="width:15%;"><?=$item['phicacc'];?><br><?=$item['tinbir'];?></td>
+                    <td class="text-center" style="width:15%;"><?=$item['emailaddress'];?></td>
+                    <td class="text-center align-items-center" style="width:10%;">
                        <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="View"><i class="bi bi-eye-fill"></i></button>
                     </td>
                 </tr>
