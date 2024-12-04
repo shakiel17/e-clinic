@@ -15,3 +15,18 @@
         </div>
     </div>
 </div>
+
+<!-- doctor's Profile -->
+<div class="modal fade" id="doctorProfile" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Doctoc's Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               Name: 
+            </div>
+        </div>
+    </div>
+</div>

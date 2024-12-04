@@ -187,6 +187,27 @@ public function manage_doctor(){
     $this->load->view('includes/admin/modal');           
     $this->load->view('includes/footer');
 }
+
+public function doctor_profile(){
+    $page = "doctor_profile";
+    if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+        show_404();
+    }                  
+    if($this->session->admin_login){
+
+    }else{
+        redirect(base_url()."admin");
+    }
+    $data['title'] = "Doctor List";
+    $data['items'] = $this->Clinic_model->getAllDoctor();
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/'.$page,$data);          
+    $this->load->view('includes/admin/modal');           
+    $this->load->view('includes/footer');
+}
 // end of admin functions
 }
+
 ?>

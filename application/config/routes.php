@@ -56,6 +56,7 @@ $route['admin_authentication'] = 'pages/admin_authentication';
 $route['admin_logout'] = 'pages/admin_logout';
 $route['manage_doctor'] = 'pages/manage_doctor';
 $route['manage_user'] = 'pages/manage_user';
+$route['doctor_profile'] = 'pages/doctor_profile';
 
 //start of user route
 $route['submitadmission'] = 'pages/submitadmission';

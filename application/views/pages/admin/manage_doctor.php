@@ -50,7 +50,7 @@
                     <td class="text-center" style="width:15%;"><?=$item['phicacc'];?><br><?=$item['tinbir'];?></td>
                     <td class="text-center" style="width:15%;"><?=$item['emailaddress'];?></td>
                     <td class="text-center align-items-center" style="width:10%;">
-                       <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="View"><i class="bi bi-eye-fill"></i></button>
+                       <button type="button" class="btn btn-primary" href="<?=base_url();?>doctor_profile" target="_blank"><i class="bi bi-eye-fill"></i></button>
                     </td>
                 </tr>
                 <?php
