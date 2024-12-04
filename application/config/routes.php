@@ -59,10 +59,16 @@ $route['manage_user'] = 'pages/manage_user';
 $route['doctor_profile'] = 'pages/doctor_profile';
 
 //start of user route
+$route['userprofile'] = 'pages/userprofile';
+$route['print_rx/(:any)'] = 'pages/print_rx/$1';
+$route['delete_rx/(:any)/(:any)'] = 'pages/delete_rx/$1/$2';
 $route['add_rx'] = 'pages/add_rx';
 $route['active_patient'] = 'pages/active_patient';
+$route['patient_discharged/(:any)'] = 'pages/patient_discharged/$1';
+$route['patientprofile/(:any)'] = 'pages/patientprofile/$1';
 $route['patientdetails/(:any)'] = 'pages/patientdetails/$1';
 $route['submitadmission'] = 'pages/submitadmission';
+$route['re_admission/(:any)'] = 'pages/re_admission/$1';
 $route['new_admission'] = 'pages/new_admission';
 $route['user_logout'] = 'pages/user_logout';
 $route['main'] = 'pages/main';

@@ -44,7 +44,7 @@
         }
 
         public function getAllPatientByDocActive($code){
-            $result=$this->db->query("SELECT pp.*,a.* FROM admission a INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno WHERE a.ap='$code' AND a.status='Active' GROUP BY a.patientidno ORDER BY pp.lastname ASC,pp.firstname ASC");
+            $result=$this->db->query("SELECT pp.*,a.* FROM admission a INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno WHERE a.ap='$code' AND a.status='Active' GROUP BY a.caseno ORDER BY pp.lastname ASC,pp.firstname ASC");
             return $result->result_array();
         }
 
@@ -115,15 +115,57 @@
         public function save_rx(){
             $caseno=$this->input->post('caseno');
             $description=$this->input->post('description');
+            $quantity=$this->input->post('quantity');
             $remarks=$this->input->post('remarks');
             $date=date('Y-m-d');
             $time=date('H:i:s');
-            $result=$this->db->query("INSERT INTO productout(caseno,`description`,remarks,datearray,timearray) VALUES('$caseno','$description','$remarks','$date','$time')");
+            $result=$this->db->query("INSERT INTO productout(caseno,`description`,quantity,remarks,datearray,timearray) VALUES('$caseno','$description','$quantity','$remarks','$date','$time')");
             if($result){
                 return true;
             }else{
                 return false;
             }
+        }
+        public function delete_rx($id){
+            $result=$this->db->query("DELETE FROM productout WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getSingleRx($id){
+            $result=$this->db->query("SELECT pp.*,po.*,a.*,d.name,d.ptrno,d.s2no FROM productout po INNER JOIN admission a ON a.caseno=po.caseno INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno INNER JOIN docfile d ON d.code=a.ap WHERE po.id='$id'");
+            return $result->row_array();
+        }
+        public function getPatientProfile($patientidno){
+            $result=$this->db->query("SELECT pp.*,a.* FROM admission a INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno WHERE pp.patientidno='$patientidno' GROUP BY pp.patientidno ORDER BY a.dateadmit DESC LIMIT 1");
+            return $result->row_array();
+        }
+        public function discharged_patient($caseno){
+            $result=$this->db->query("UPDATE admission SET `status`='discharged' WHERE caseno='$caseno'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function checkActiveAdmission($patientidno){
+            $result=$this->db->query("SELECT * FROM admission WHERE patientidno='$patientidno' AND `status`='Active'");
+            if($result->num_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getAdmissionHistory($patientidno){
+            $apcode=$this->session->apcode;
+            $result=$this->db->query("SELECT * FROM admission WHERE patientidno='$patientidno' AND ap='$apcode'");
+            return $result->result_array();
+        }
+        public function getUserProfile($code){
+            $result=$this->db->query("SELECT * FROM docfile WHERE code='$code'");
+            return $result->row_array();
         }
     }
 ?>

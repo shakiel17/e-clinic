@@ -36,13 +36,23 @@
                   <?php
                   $x=1;
                   foreach($items as $item){
+                    $check=$this->Clinic_model->checkActiveAdmission($item['patientidno']);
+                    if($check){
+                      $button="<a href='#' class='btn btn-outline-danger btn-sm' title='Still in'><i class='bi bi-exclamation-circle'></i></a>";
+                    }else{
+                      $button="<a href='<?=base_url();?>re_admission/<?=$item[patientidno];?>' class='btn btn-success btn-sm' title='Re-Admit'><i class='bx bxs-ambulance'></i></a>";
+                    }
                     echo "<tr>";
                       echo "<td>$x.</td>";
                       echo "<td>$item[lastname], $item[firstname] $item[middlename] $item[suffix]</td>";
                       echo "<td>".date('m/d/Y',strtotime($item['birthdate']))."</td>";
                       echo "<td>$item[gender]</td>";
                       ?>
-                      <td></td>
+                      <td>
+                        <!-- <a href="<?=base_url();?>re_admission/<?=$item['patientidno'];?>" class="btn btn-success btn-sm" title="Re-Admit"><i class="bx bxs-ambulance"></i></a> -->
+                         <?=$button;?>
+                         <a href="<?=base_url();?>patientprofile/<?=$item['patientidno'];?>" class="btn btn-info btn-sm" title="View Profile"><i class="bi bi-file-person"></i></a>
+                      </td>
                       <?php
                     echo "</tr>";
                     $x++;

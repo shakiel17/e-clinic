@@ -4,9 +4,8 @@
       <h1><?=$title;?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="<?=base_url();?>">Home</a></li>
-          <li class="breadcrumb-item"><a href="<?=base_url();?>active_patient">Active Patient</a></li>
-          <li class="breadcrumb-item active">Patient Details</li>
+          <li class="breadcrumb-item"><a href="<?=base_url();?>">Home</a></li>          
+          <li class="breadcrumb-item active">Profile</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -20,22 +19,10 @@
 
               <img src="<?=base_url();?>design/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
               <h2><?=$item['firstname'];?> <?=$item['lastname'];?></h2>
-              <small><?=$item['caseno'];?></small>
+              <small><?=$item['patientidno'];?></small>
               <div class="social-links mt-2">
-                <?=$item['status'];?>
-              </div>
-              <?php
-              $status="";
-              $lock="";
-              if($item['status']=="Active"){
-                ?>
-              <a href="<?=base_url();?>patient_discharged/<?=$item['caseno'];?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you wish to discharge this patient?');return false;"><i class="bi bi-box-arrow-in-up"></i> Discharge</a>
-              <?php
-              }else{
-                $status="disabled";
-                $lock="style='display:none;'";
-              }
-              ?>
+                <a href="" class="btn btn-primary btn-sm text-white"><i class="bi bi-pencil"></i> Edit Profile</a>
+              </div>              
             </div>
           </div>
 
@@ -53,7 +40,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Rx</button>
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Admission History</button>
                 </li>
 
                 <!-- <li class="nav-item">
@@ -67,9 +54,7 @@
               </ul>
               <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">Chief Complaint</h5>
-                  <p class="small fst-italic"><?=$item['chief_complaint'];?></p>
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">                  
 
                   <h5 class="card-title">Profile Details</h5>
 
@@ -106,60 +91,32 @@
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
                     <div class="col-lg-9 col-md-8"><?=$item['contactno'];?></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Date/Time Admitted</div>
-                    <div class="col-lg-9 col-md-8"><?=date('m/d/Y',strtotime($item['dateadmit']));?> | <?=date('h:i A',strtotime($item['timeadmit']));?></div>
-                  </div>
+                  </div>                  
 
                 </div>
 
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                    <div class="row mb-3">
-                        <?=form_open(base_url()."add_rx");?>
-                        <input type="hidden" name="caseno" value="<?=$item['caseno'];?>">
-                        <table width="100%" border="0" cellspacing="2">
-                            <tr>
-                                <td><b>Description</b></td>
-                                <td><textarea name="description" rows="3" class="form-control"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td><b>Quantity</b></td>
-                                <td><input type="text" class="form-control" name="quantity"></td>
-                            </tr>
-                            <tr>
-                                <td><b>Route & Frequency</b></td>
-                                <td><textarea name="remarks" rows="3" class="form-control"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><input type="submit" class="btn btn-primary" value="Submit" <?=$status;?>></td>
-                            </tr>
-                        </table>
-                        <?=form_close();?>
-                    </div>
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">                   
                     <div class="row mt-2">
                         <b>Rx History</b><br>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Description</th>
-                                    <th>Qty</th>
-                                    <th>Route & Frequency</th>
+                                    <th>Caseno</th>
+                                    <th>Date/Time Admit</th>
+                                    <th>Status</th>
                                     <th></th>
                                 </tr>                                
                             </thead>
                             <tbody>
                                 <?php
-                                $items=$this->Clinic_model->getRxHistory($item['caseno']);
+                                $items=$this->Clinic_model->getAdmissionHistory($item['patientidno']);
                                 foreach($items as $item){
                                 ?>
                                 <tr>
-                                    <td><?=$item['description'];?></td>
-                                    <td><?=$item['quantity'];?></td>
-                                    <td><?=$item['remarks'];?></td>
-                                    <td><a href="<?=base_url();?>print_rx/<?=$item['id'];?>" class="btn btn-info btn-sm" title="Print" target="_blank"><i class="bi bi-printer"></i></a> <a href="<?=base_url();?>delete_rx/<?=$item['id'];?>/<?=$item['caseno'];?>" class="btn btn-danger btn-sm" title="Delete" onclick="return confirm('Do you wish to delete this item?');return false;" <?=$lock;?>><i class="bi bi-trash"></i></a></td>
+                                    <td><?=$item['caseno'];?></td>
+                                    <td><?=date('m/d/Y',strtotime($item['dateadmit']));?> | <?=date('h:i A',strtotime($item['timeadmit']));?></td>
+                                    <td><?=$item['status'];?></td>
+                                    <td><a href="<?=base_url();?>patientdetails/<?=$item['caseno'];?>" class="btn btn-success btn-sm"><i  class="bi bi-eye"></i></a></td>
                                 </tr>
                                 <?php
                                 }

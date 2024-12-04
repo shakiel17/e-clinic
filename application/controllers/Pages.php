@@ -160,6 +160,94 @@ date_default_timezone_set('Asia/Manila');
                 echo "<script>alert('Unable to create Rx!');window.location='".base_url()."patientdetails/$caseno';</script>";
             }
         }
+        public function delete_rx($id,$caseno){            
+            $add=$this->Clinic_model->delete_rx($id);
+            if($add){
+                echo "<script>alert('Rx successfully deleted!');window.location='".base_url()."patientdetails/$caseno';</script>";
+            }else{
+                echo "<script>alert('Unable to delete Rx!');window.location='".base_url()."patientdetails/$caseno';</script>";
+            }
+        }
+        public function print_rx($id){
+            $page="print_rx";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }                                    
+            $data['item'] = $this->Clinic_model->getSingleRx($id);
+            $this->load->view('pages/'.$page,$data);                      
+
+        }
+        public function re_admission($patientidno){
+            $page = "re_admission";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Admission";            
+            $data['item'] = $this->Clinic_model->getPatientProfile($patientidno);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function patient_discharged($caseno){            
+            $add=$this->Clinic_model->discharged_patient($caseno);
+            if($add){
+                echo "<script>alert('Patient successfully discharged!');window.location='".base_url()."active_patient';</script>";
+            }else{
+                echo "<script>alert('Unable to discharged patient!');window.location='".base_url()."active_patient';</script>";
+            }
+        }
+        public function patientprofile($patientidno){
+            $page = "patientprofile";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Profile";            
+            $data['item'] = $this->Clinic_model->getPatientProfile($patientidno);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function userprofile(){
+            $page = "userprofile";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Profile";            
+            $apcode=$this->session->apcode;
+            $data['item'] = $this->Clinic_model->getUserProfile($apcode);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
 // end of user functions
 
 // start of admin functions
