@@ -110,11 +110,7 @@
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
                 <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-              </div>
-              <div class="newsec">
-                  asdfaasdfasdfasdfasdfasddfasdf
-              </div>
-
+              </div>              
             </div>
           </div>
         </div>
