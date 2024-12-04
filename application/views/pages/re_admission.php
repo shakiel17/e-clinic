@@ -72,7 +72,7 @@
                 <div class="col-md-4">
                   <div class="col-md-12">
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floatingCity" placeholder="City" name="contactno" required>
+                      <input type="text" class="form-control" id="floatingCity" placeholder="City" name="contactno">
                       <label for="floatingCity">Contact No.</label>
                     </div>
                   </div>

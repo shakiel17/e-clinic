@@ -97,17 +97,67 @@ date_default_timezone_set('Asia/Manila');
 
         public function submitadmission(){
             $patientidno=$this->input->post('patientidno');
+            $apcode=$this->session->apcode;
             if($patientidno==""){
                 $pid="PN".date('Ymdhis');
             }else{
                 $pid=$patientidno;
             }
             $caseno="CN".date('Ymdhis');
-            $admit=$this->Clinic_model->save_admission($patientidno,$pid,$caseno);
+            $admit=$this->Clinic_model->save_admission($patientidno,$pid,$caseno,$apcode);
             if($admit){
+                redirect(base_url()."patientdetails/$caseno");
+            }else{
+                echo "<script>alert('Unable to admit patient!');window.history.back();</script>";
+            }
+        }
+
+        public function patientdetails($caseno){
+            $page = "patientdetails";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
 
             }else{
-                
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Details";            
+            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function active_patient(){
+            $page = "active_patient";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Active Patient List";
+            $apcode=$this->session->apcode;
+            $data['items'] = $this->Clinic_model->getAllPatientByDocActive($apcode);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function add_rx(){
+            $caseno=$this->input->post('caseno');
+            $add=$this->Clinic_model->save_rx();
+            if($add){
+                echo "<script>alert('Rx successfully created!');window.location='".base_url()."patientdetails/$caseno';</script>";
+            }else{
+                echo "<script>alert('Unable to create Rx!');window.location='".base_url()."patientdetails/$caseno';</script>";
             }
         }
 // end of user functions

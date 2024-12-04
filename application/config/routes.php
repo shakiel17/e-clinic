@@ -59,6 +59,9 @@ $route['manage_user'] = 'pages/manage_user';
 $route['doctor_profile'] = 'pages/doctor_profile';
 
 //start of user route
+$route['add_rx'] = 'pages/add_rx';
+$route['active_patient'] = 'pages/active_patient';
+$route['patientdetails/(:any)'] = 'pages/patientdetails/$1';
 $route['submitadmission'] = 'pages/submitadmission';
 $route['new_admission'] = 'pages/new_admission';
 $route['user_logout'] = 'pages/user_logout';

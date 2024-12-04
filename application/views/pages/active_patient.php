@@ -4,7 +4,8 @@
       <h1><?=$title;?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="<?=base_url();?>">Home</a></li>          
+          <li class="breadcrumb-item"><a href="<?=base_url();?>">Home</a></li>
+          <li class="breadcrumb-item active">Active Patient</a></li>          
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -18,7 +19,7 @@
               <table width="100%" border="0">
                   <tr>
                     <td><h5 class="card-title">List of Patient</h5></td>
-                    <td align="right"><a href="<?=base_url();?>new_admission" class="btn btn-primary btn-sm rounded-pill"><i class="bi bi-plus-circle"></i> New Admission</td></td>
+                    <td align="right"></td>
                   </tr>
               </table>              
               <!-- Table with stripped rows -->
@@ -26,9 +27,9 @@
                 <thead>
                   <tr>
                     <th>No.</th>
+                    <th>Case No</th>
                     <th>Name</th>
-                    <th>Birthdate</th>
-                    <th>Gender</th>                    
+                    <th>Complaint</th>                    
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -38,11 +39,11 @@
                   foreach($items as $item){
                     echo "<tr>";
                       echo "<td>$x.</td>";
-                      echo "<td>$item[lastname], $item[firstname] $item[middlename] $item[suffix]</td>";
-                      echo "<td>".date('m/d/Y',strtotime($item['birthdate']))."</td>";
-                      echo "<td>$item[gender]</td>";
+                      echo "<td>$item[caseno]</td>";
+                      echo "<td>$item[lastname], $item[firstname] $item[middlename] $item[suffix]</td>";                      
+                      echo "<td>$item[chief_complaint]</td>";
                       ?>
-                      <td></td>
+                      <td><a href="<?=base_url();?>patientdetails/<?=$item['caseno'];?>" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i> View Details</a></td>
                       <?php
                     echo "</tr>";
                     $x++;
