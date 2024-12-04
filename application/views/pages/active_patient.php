@@ -14,7 +14,7 @@
       <div class="row">
         <div class="col-lg-12">
 
-          <div class="card">
+          <div class="card table-responsive py-5">
             <div class="card-body">
               <table width="100%" border="0">
                   <tr>

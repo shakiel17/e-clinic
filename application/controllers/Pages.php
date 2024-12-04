@@ -192,7 +192,8 @@ date_default_timezone_set('Asia/Manila');
             }else{
                 redirect(base_url());
             }
-            $data['title'] = "Patient Admission";            
+            $data['title'] = "Patient Admission"; 
+            $data['patientidno'] = $patientidno;
             $data['item'] = $this->Clinic_model->getPatientProfile($patientidno);
             $this->load->view('includes/header');
             $this->load->view('includes/navbar');
