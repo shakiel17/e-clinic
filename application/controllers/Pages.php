@@ -249,6 +249,14 @@ date_default_timezone_set('Asia/Manila');
             $this->load->view('includes/modal');           
             $this->load->view('includes/footer');
         }
+        public function update_user_profile(){            
+            $add=$this->Clinic_model->update_user_profile();
+            if($add){
+                echo "<script>alert('User profile successfully updated!');window.location='".base_url()."userprofile';</script>";
+            }else{
+                echo "<script>alert('Unable to update user profile!');window.location='".base_url()."userprofile';</script>";
+            }
+        }
 // end of user functions
 
 // start of admin functions

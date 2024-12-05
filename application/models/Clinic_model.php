@@ -167,5 +167,19 @@
             $result=$this->db->query("SELECT * FROM docfile WHERE code='$code'");
             return $result->row_array();
         }
+        public function update_user_profile(){
+            $code=$this->input->post('code');
+            $lastname=$this->input->post('lastname');
+            $firstname=$this->input->post('firstname');
+            $middlename=$this->input->post('middlename');
+            $suffix=$this->input->post('suffix');
+            $specialization=$this->input->post('specialization');
+            $phicacc=$this->input->post('phicacc');
+            $licenseno=$this->input->post('licenseno');
+            $ptrno=$this->input->post('ptrno');
+            $s2no=$this->input->post('s2no');
+            $email=$this->input->post('email');
+            
+        }
     }
 ?>
