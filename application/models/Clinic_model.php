@@ -173,13 +173,60 @@
             $firstname=$this->input->post('firstname');
             $middlename=$this->input->post('middlename');
             $suffix=$this->input->post('suffix');
+            $name=$firstname." ".$middlename." ".$lastname." ".$suffix;
             $specialization=$this->input->post('specialization');
             $phicacc=$this->input->post('phicacc');
+            $tin=$this->input->post('tin');
             $licenseno=$this->input->post('licenseno');
             $ptrno=$this->input->post('ptrno');
             $s2no=$this->input->post('s2no');
             $email=$this->input->post('email');
-            
+            $data="lastname='$lastname',firstname='$firstname',middlename='$middlename',ext='$suffix',name='$name',specialization='$specialization',tod='$specialization',phicacc='$phicacc',tinbir='$tin',phicacc1='$phicacc',emailaddress='$email',licenseno='$licenseno',ptrno='$ptrno',s2no='$s2no' WHERE code='$code'";
+            $result=$this->db->query("UPDATE docfile SET $data");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function update_user_password(){
+            $code=$this->input->post('code');
+            $password=$this->input->post('password');
+            $newpassword=$this->input->post('newpassword');
+            $confirmpassword=$this->input->post('renewpassword');
+            if($confirmpassword==$newpassword){
+                $check=$this->db->query("SELECT * FROM docfile WHERE code='$code' AND `password`='$password'");
+                if($check->num_rows()>0){
+                    $result=$this->db->query("UPDATE docfile SET `password`='$newpassword' WHERE code='$code'");
+                    if($result){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+        public function upload_user_picture(){
+            $code=$this->input->post('code');
+            $fileName=basename($_FILES["file"]["name"]);
+            $fileType=pathinfo($fileName, PATHINFO_EXTENSION);
+            $allowTypes = array('jpg','png','jpeg','gif');
+            if(in_array($fileType,$allowTypes)){
+                $image = $_FILES["file"]["tmp_name"];
+                $imgContent=addslashes(file_get_contents($image));
+                $result=$this->db->query("UPDATE docfile SET `pic`='$imgContent' WHERE code='$code'");            
+            }else{
+                return false;
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 ?>

@@ -257,6 +257,22 @@ date_default_timezone_set('Asia/Manila');
                 echo "<script>alert('Unable to update user profile!');window.location='".base_url()."userprofile';</script>";
             }
         }
+        public function update_user_password(){            
+            $add=$this->Clinic_model->update_user_password();
+            if($add){
+                echo "<script>alert('User password successfully updated!');window.location='".base_url()."userprofile';</script>";
+            }else{
+                echo "<script>alert('Unable to update user password!');window.location='".base_url()."userprofile';</script>";
+            }
+        }
+        public function upload_user_picture(){            
+            $add=$this->Clinic_model->upload_user_picture();
+            if($add){
+                echo "<script>alert('Profile picture successfully updated!');window.location='".base_url()."userprofile';</script>";
+            }else{
+                echo "<script>alert('Unable to update profile picture!');window.location='".base_url()."userprofile';</script>";
+            }
+        }
 // end of user functions
 
 // start of admin functions

@@ -19,7 +19,17 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
               <!-- <img src="<?=base_url();?>design/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+               <?php
+               if($item['pic']==""){
+                ?>                
+                <?php
+               }else{
+               ?>
               <img src="data:image/jpg;charset=utf8;base64,<?=base64_encode($item['pic']);?>" alt="Profile">
+              <?php
+               }
+               ?>
+               <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#UploadPicture"><i class="bi bi-arrow-bar-up"></i> Upload Pic</a>
               <h2><?=$item['name'];?></h2>
               <h3><?=$item['specialization'];?></h3>
               <div class="social-links mt-2">
@@ -146,6 +156,13 @@
                     </div>
 
                     <div class="row mb-3">
+                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">TIN</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="tin" type="text" class="form-control" id="Country" value="<?=$item['tinbir'];?>">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">License No.</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="licenseno" type="text" class="form-control" id="Country" value="<?=$item['licenseno'];?>">
@@ -224,8 +241,8 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
-
+                  <form action="<?=base_url();?>update_user_password" method="POST">
+                    <input type="hidden" name="code" value="<?=$item['code'];?>">
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">

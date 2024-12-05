@@ -59,6 +59,8 @@ $route['manage_user'] = 'pages/manage_user';
 $route['doctor_profile'] = 'pages/doctor_profile';
 
 //start of user route
+$route['upload_user_picture'] = 'pages/upload_user_picture';
+$route['update_user_password'] = 'pages/update_user_password';
 $route['update_user_profile'] = 'pages/update_user_profile';
 $route['userprofile'] = 'pages/userprofile';
 $route['print_rx/(:any)'] = 'pages/print_rx/$1';
