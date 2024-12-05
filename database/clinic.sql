@@ -16,6 +16,23 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`clinic` /*!40100 DEFAULT CHARACTER SET 
 
 USE `clinic`;
 
+/*Table structure for table `admin` */
+
+DROP TABLE IF EXISTS `admin`;
+
+CREATE TABLE `admin` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `fullname` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `admin` */
+
+insert  into `admin`(`id`,`username`,`password`,`fullname`) values 
+(1,'admin','1234','Administrator');
+
 /*Table structure for table `admission` */
 
 DROP TABLE IF EXISTS `admission`;
@@ -30,14 +47,17 @@ CREATE TABLE `admission` (
   `chief_complaint` text DEFAULT NULL,
   `civil_status` varchar(100) DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `nationality` varchar(100) DEFAULT NULL,
+  `contactno` varchar(100) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `admission` */
+
+insert  into `admission`(`id`,`patientidno`,`caseno`,`ap`,`dateadmit`,`timeadmit`,`chief_complaint`,`civil_status`,`address`,`contactno`,`status`,`datearray`,`timearray`) values 
+(1,'PN20241204095451','CN20241204095451','100002','2024-12-04','09:54:51','Headache','married','Purok 7C, Brgy. Sudapin, Kidapawan City','09107524284','discharged','2024-12-04','09:54:51');
 
 /*Table structure for table `docfile` */
 
@@ -64,7 +84,7 @@ CREATE TABLE `docfile` (
   `status` varchar(10) NOT NULL,
   `pic` longblob NOT NULL,
   `vatex` int(1) NOT NULL,
-  `sig` varchar(100) NOT NULL,
+  `sig` longblob NOT NULL,
   `username` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -102,7 +122,7 @@ insert  into `docfile`(`code`,`name`,`specialization`,`tod`,`phicacc`,`tinbir`,`
 ('100068','MARJORIE DELAON','NEUROLOGIST','NEUROLOGIST','1211-1223532-0',' ',0,0.00,'1211-1223532-0','','','','','DELAON','MARJORIE','','','Active','',0,'',NULL,NULL),
 ('100069','ANTHONY TAN DIOKNO','PEDIATRICIAN','PEDIATRICIAN','1501-0600165-6','292-087-893    ',0,1.00,'1501-0600165-6','','92777','','','DIOKNO','ANTHONY','TAN','','Active','',1,'',NULL,NULL),
 ('100073','RODRIGO A. DUARTE JR','SURGEON','SURGEON','1309-0600091-5',' ',100,100.00,'1309-0600091-5','','90761','','','DUARTE','RODRIGO','A.','JR.','Active','',1,'',NULL,NULL),
-('100075','CHRISTOPHER C. EMBALSADO','INTERNAL MEDICINE','INTERNAL MEDICINE','1501-9800301-1','114-831-815',0,1.00,'1501-9800301-1','','0055833','2154997','017782-RM18-024','EMBALSADO','CHRISTOPHER','CAÑETE','','Active','',1,'embalsado',NULL,NULL),
+('100075','CHRISTOPHER C. EMBALSADO','INTERNAL MEDICINE','INTERNAL MEDICINE','1501-9800301-1','114-831-815',0,1.00,'1501-9800301-1','','0055833','2154997','017782-RM18-024','EMBALSADO','CHRISTOPHER','CAÑETE','','Active','',1,'',NULL,NULL),
 ('100076','ELVIRA C. EMBALSADO','OPTHA','OPTHA','1304-9812164-3','129-11365',0,1.00,'1304-9812164-3','','75496','','','EMBALSADO','ELVIRA','C.','','Active','',1,'',NULL,NULL),
 ('100090','MA. DULCE AMOR J. GLORIANI','PEDIATRICIAN','PEDIATRICIAN','1501-1121525-4','929-665-716',0,1.00,'1501-1121525-4','','99688','','','GLORIANI','MA. DULCE AMOR','J.','','Active','',1,'',NULL,NULL),
 ('100096','MERCEDES T. HISO','ANESTHESIOLOGISTS',' ANESTHESIOLOGISTS','1501-9812727-6','918-268-164',0,0.00,'1501-9812727-6','','75199','','','HISO','MERCEDES','T.','','Active','',1,'',NULL,NULL),
@@ -295,9 +315,12 @@ CREATE TABLE `patientprofile` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `patientprofile` */
+
+insert  into `patientprofile`(`id`,`patientidno`,`lastname`,`firstname`,`middlename`,`suffix`,`birthdate`,`gender`,`is_senior`,`datearray`,`timearray`) values 
+(1,'PN20241204095451','Aboy','Eczekiel','Hermocilla','','1986-05-14','Male',0,'2024-12-04','09:54:51');
 
 /*Table structure for table `productout` */
 
@@ -307,13 +330,17 @@ CREATE TABLE `productout` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `caseno` varchar(100) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
+  `quantity` varchar(100) DEFAULT NULL,
   `remarks` varchar(500) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `productout` */
+
+insert  into `productout`(`id`,`caseno`,`description`,`quantity`,`remarks`,`datearray`,`timearray`) values 
+(3,'CN20241204095451','adfef','20','affaw','2024-12-04','12:20:11');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
