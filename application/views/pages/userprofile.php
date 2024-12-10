@@ -188,7 +188,14 @@
                       <div class="col-md-8 col-lg-9">
                         <input name="email" type="email" class="form-control" id="Email" value="<?=$item['emailaddress'];?>">
                       </div>
-                    </div>                    
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">No. of Patient Catered per Day</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="cater" type="number" class="form-control" id="Email" value="<?=$item['vatex'];?>">
+                      </div>
+                    </div>
 
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>

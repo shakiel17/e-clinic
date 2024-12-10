@@ -181,7 +181,8 @@
             $ptrno=$this->input->post('ptrno');
             $s2no=$this->input->post('s2no');
             $email=$this->input->post('email');
-            $data="lastname='$lastname',firstname='$firstname',middlename='$middlename',ext='$suffix',name='$name',specialization='$specialization',tod='$specialization',phicacc='$phicacc',tinbir='$tin',phicacc1='$phicacc',emailaddress='$email',licenseno='$licenseno',ptrno='$ptrno',s2no='$s2no' WHERE code='$code'";
+            $cater=$this->input->post('cater');
+            $data="lastname='$lastname',firstname='$firstname',middlename='$middlename',ext='$suffix',name='$name',specialization='$specialization',tod='$specialization',phicacc='$phicacc',tinbir='$tin',phicacc1='$phicacc',emailaddress='$email',licenseno='$licenseno',ptrno='$ptrno',s2no='$s2no',vatex='$cater' WHERE code='$code'";
             $result=$this->db->query("UPDATE docfile SET $data");
             if($result){
                 return true;
