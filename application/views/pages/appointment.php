@@ -82,7 +82,7 @@
                       $date=date('Y-m',strtotime($datenow))."-".$i;
                       $apcode=$this->session->apcode;
                       $count=0;
-                      $check=$this->Clinic_model->db->query("SELECT * FROM appointment WHERE apcode='$apcode' AND appointment_date='$date'");
+                      $check=$this->Clinic_model->db->query("SELECT * FROM appointment WHERE apcode='$apcode' AND appointment_date='$date' AND `status`='pending'");
                       if($check->num_rows() > 0){
                         $items=$check->result_array();
                         foreach($items as $item){

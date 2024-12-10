@@ -96,6 +96,9 @@
             }else{
                 $this->db->query("UPDATE patientprofile SET lastname='$lastname',firstname='$firstname',middlename='$middlename',suffix='$suffix',birthdate='$birthdate',gender='$gender',is_senior='$senior' WHERE patientidno='$pid'");
             }
+            if($appoint_id <> ""){
+                $this->db->query("UPDATE appointment SET `status`='completed' WHERE id='$appoint_id'");
+            }
 
             $result=$this->db->query("INSERT INTO admission(patientidno,caseno,ap,dateadmit,timeadmit,chief_complaint,civil_status,`address`,contactno,`status`,datearray,timearray) VALUES('$pid','$caseno','$ap','$date','$time','$complaint','$civilstatus','$address','$nationality','Active','$date','$time')");
             if($result){
@@ -231,7 +234,7 @@
             }
         }
         public function getAllAppointment($code,$date){
-            $result=$this->db->query("SELECT * FROM appointment WHERE apcode='$code' AND appointment_date='$date' ORDER BY id ASC");
+            $result=$this->db->query("SELECT * FROM appointment WHERE apcode='$code' AND appointment_date='$date' AND `status`='pending' ORDER BY id ASC");
             return $result->result_array();
         }
         public function checkPatient($id){
@@ -248,6 +251,18 @@
                 redirect(base_url()."appoint_readmit/$id/$patientidno");
             }else{
                 redirect(base_url()."appoint_admit/$id");
+            }
+        }
+        public function getPatientProfileAppointment($id){
+            $result=$this->db->query("SELECT * FROM appointment WHERE id='$id'");
+            return $result->row_array();
+        }
+        public function cancel_appointment($id){
+            $result=$this->db->query("UPDATE appointment SET `status`='cancel' WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
             }
         }
     }

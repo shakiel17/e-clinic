@@ -42,7 +42,10 @@
                       echo "<td>$item[lastname], $item[firstname] $item[middlename] $item[suffix]</td>";                                            
                       echo "<td>".date('m/d/Y',strtotime($item['birthdate']))."</td>";
                       ?>
-                      <td><a href="<?=base_url();?>admitpatient/<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i> View Details</a></td>
+                      <td>
+                        <a href="<?=base_url();?>admitpatient/<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i> View Details</a>
+                        <a href="<?=base_url();?>cancel_appointment/<?=$item['id'];?>/<?=$datenow;?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you wish to cancel this appointment?');return false;">Cancel</a>
+                      </td>
                       <?php
                     echo "</tr>";
                     $x++;

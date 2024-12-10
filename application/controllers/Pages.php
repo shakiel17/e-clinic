@@ -358,6 +358,34 @@ date_default_timezone_set('Asia/Manila');
             $this->load->view('includes/modal');           
             $this->load->view('includes/footer');
         }
+        public function appoint_admit($id){
+            $page = "appoint_admit";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Admission";             
+            $data['id'] = $id;
+            $data['item'] = $this->Clinic_model->getPatientProfileAppointment($id);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function cancel_appointment($id,$datearray){            
+            $add=$this->Clinic_model->cancel_appointment($id);
+            if($add){
+                echo "<script>alert('Appointment successfully cancelled!');window.location='".base_url()."view_appointment/$datearray';</script>";
+            }else{
+                echo "<script>alert('Unable to cancel appointment!');window.location='".base_url()."view_appointment/$datearray';</script>";
+            }
+        }
 // end of user functions
 
 // start of admin functions
