@@ -59,6 +59,11 @@ $route['manage_user'] = 'pages/manage_user';
 $route['doctor_profile'] = 'pages/doctor_profile';
 
 //start of user route
+$route['appoint_readmit/(:any)/(:any)'] = 'pages/appoint_readmit/$1/$2';
+$route['admitpatient/(:any)'] = 'pages/admitpatient/$1';
+$route['view_appointment/(:any)'] = 'pages/view_appointment/$1';
+$route['search_appointment'] = 'pages/search_appointment';
+$route['appointment'] = 'pages/appointment';
 $route['upload_user_picture'] = 'pages/upload_user_picture';
 $route['update_user_password'] = 'pages/update_user_password';
 $route['update_user_profile'] = 'pages/update_user_profile';

@@ -273,6 +273,91 @@ date_default_timezone_set('Asia/Manila');
                 echo "<script>alert('Unable to update profile picture!');window.location='".base_url()."userprofile';</script>";
             }
         }
+        public function appointment(){
+            $page = "appointment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Appointment Calendar";
+            $data['datenow'] = date('Y-m-d');
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function search_appointment(){
+            $page = "appointment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $month=$this->input->post('month');
+            $year=$this->input->post('year');
+            $data['title'] = "Appointment Calendar";
+            $data['datenow'] = $year."-".$month;
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function view_appointment($datearray){
+            $page = "view_appointment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Appointment Calendar";
+            $apcode=$this->session->apcode;
+            $data['datenow'] = $datearray;
+            $data['items'] = $this->Clinic_model->getAllAppointment($apcode,$datearray);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function admitpatient($id){
+            $search=$this->Clinic_model->checkPatient($id);            
+        }
+        public function appoint_readmit($id,$patientidno){
+            $page = "appoint_readmit";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            }else{
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Admission"; 
+            $data['patientidno'] = $patientidno;
+            $data['id'] = $id;
+            $data['item'] = $this->Clinic_model->getPatientProfile($patientidno);
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
 // end of user functions
 
 // start of admin functions

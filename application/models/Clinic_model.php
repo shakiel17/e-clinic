@@ -74,6 +74,7 @@
             $civilstatus=$this->input->post('civilstatus');
             $address=$this->input->post('address');
             $complaint=$this->input->post('initialdiagnosis');
+            $appoint_id=$this->input->post('id');
             if($discount=="senior"){
                 $senior="1";
             }else{
@@ -227,6 +228,26 @@
                 return true;
             }else{
                 return false;
+            }
+        }
+        public function getAllAppointment($code,$date){
+            $result=$this->db->query("SELECT * FROM appointment WHERE apcode='$code' AND appointment_date='$date' ORDER BY id ASC");
+            return $result->result_array();
+        }
+        public function checkPatient($id){
+            $query=$this->db->query("SELECT * FROM appointment WHERE id='$id'");
+            $result=$query->row_array();
+            $lastname=$result['lastname'];
+            $firstname=$result['firstname'];
+            $middlename=$result['middlename'];
+            $birthdate=$result['birthdate'];
+            $checkExist=$this->db->query("SELECT * FROM patientprofile WHERE lastname='$lastname' AND firstname='$firstname' AND middlename='$middlename' AND birthdate='$birthdate'");
+            if($checkExist->num_rows()>0){
+                $row=$checkExist->row_array();
+                $patientidno=$row['patientidno'];
+                redirect(base_url()."appoint_readmit/$id/$patientidno");
+            }else{
+                redirect(base_url()."appoint_admit/$id");
             }
         }
     }

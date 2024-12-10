@@ -19,6 +19,7 @@
               <!-- Floating Labels Form -->
               <form class="row g-3" method="POST" action="<?=base_url();?>submitadmission">
                 <input type="hidden" name="patientidno" value="<?=$item['patientidno'];?>">
+                <input type="hidden" name="id" value="">
                 <div class="col-md-4">
                   <div class="form-floating">
                     <input type="text" class="form-control" id="floatingName" placeholder="Last Name" name="lastname" required value="<?=$item['lastname'];?>">

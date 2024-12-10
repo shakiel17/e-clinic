@@ -18,41 +18,42 @@
 
               <!-- Floating Labels Form -->
               <form class="row g-3" method="POST" action="<?=base_url();?>submitadmission">
-                <input type="hidden" name="patientidno" value="">
-                <input type="hidden" name="id" value="">
+                <input type="hidden" name="patientidno" value="<?=$item['patientidno'];?>">
+                <input type="hidden" name="id" value="<?=$id;?>">
                 <div class="col-md-4">
                   <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="Last Name" name="lastname" required>
+                    <input type="text" class="form-control" id="floatingName" placeholder="Last Name" name="lastname" required value="<?=$item['lastname'];?>">
                     <label for="floatingName">Last Name</label>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="First Name" name="firstname" required>
+                    <input type="text" class="form-control" id="floatingName" placeholder="First Name" name="firstname" required value="<?=$item['firstname'];?>">
                     <label for="floatingName">First Name</label>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="Middle Name" name="middlename">
+                    <input type="text" class="form-control" id="floatingName" placeholder="Middle Name" name="middlename" value="<?=$item['middlename'];?>">
                     <label for="floatingName">Middle Name</label>
                   </div>
                 </div>
                 <div class="col-md-1">
                   <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="Suffix" name="suffix">
+                    <input type="text" class="form-control" id="floatingName" placeholder="Suffix" name="suffix" value="<?=$item['suffix'];?>">
                     <label for="floatingName">Suffix</label>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-floating">
-                    <input type="date" class="form-control" id="floatingEmail" placeholder="Your Email" name="birthdate" required>
+                    <input type="date" class="form-control" id="floatingEmail" placeholder="Your Email" name="birthdate" required value="<?=$item['birthdate'];?>">
                     <label for="floatingEmail">Date of Birth</label>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-floating mb-3">
                     <select class="form-select" id="floatingSelect" aria-label="State" required name="gender">
+                        <option value="<?=$item['gender'];?>"><?=$item['gender'];?></option>
                       <option value="">Select Gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -62,7 +63,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-floating mb-3">
-                    <select class="form-select" id="floatingSelect" aria-label="State" required name="discount">                      
+                    <select class="form-select" id="floatingSelect" aria-label="State" required name="discount">
+                        <?php
+                        if($item['is_senior']==1){
+                            ?>
+                            <option value="senior">Senior</option>
+                            <?php
+                        }else{
+                            ?>
+                            <option value="none">None</option>                            
+                            <?php
+                        }
+                        ?>
                         <option value="none">None</option>
                         <option value="senior">Senior</option>
                         <option value="senior">PWD</option>
@@ -73,7 +85,7 @@
                 <div class="col-md-4">
                   <div class="col-md-12">
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floatingCity" placeholder="City" name="contactno" required>
+                      <input type="text" class="form-control" id="floatingCity" placeholder="City" name="contactno" value="<?=$item['contactno'];?>">
                       <label for="floatingCity">Contact No.</label>
                     </div>
                   </div>
@@ -81,6 +93,7 @@
                 <div class="col-md-4">
                   <div class="form-floating mb-3">
                     <select class="form-select" id="floatingSelect" aria-label="State" name="civilstatus">
+                        <option value="<?=$item['civil_status'];?>"><?=$item['civil_status'];?></option>
                       <option value="">Select Status</option>
                       <option value="newborn">Newborn</option>
                       <option value="single">Single</option>
@@ -93,7 +106,7 @@
                 </div>                
                 <div class="col-lg-6 col-sm-12">
                   <div class="form-floating">
-                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;" name="address"></textarea>
+                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;" name="address"><?=$item['address'];?></textarea>
                     <label for="floatingTextarea">Address</label>
                   </div>
                 </div>                

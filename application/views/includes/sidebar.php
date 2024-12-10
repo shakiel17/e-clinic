@@ -13,7 +13,13 @@
           <i class="bi bi-person-badge"></i>
           <span>Active Patient</span>
         </a>
-      </li>      
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?=base_url();?>appointment">
+          <i class="bi bi-calendar"></i>
+          <span>Appointment</span>
+        </a>
+      </li>     
     </ul>
 
   </aside><!-- End Sidebar-->
