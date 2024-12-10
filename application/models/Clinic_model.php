@@ -280,11 +280,11 @@
             $result = $this->db->query("SELECT COUNT(patientidno) AS ptCount FROM admission");
             return $result->row_array();
         }
-        public function getAllAppointmentCount(){ 
+        public function getAppointmentsWithCount(){ 
             $countQuery = "SELECT COUNT(apcode) AS appntCount FROM appointment";
             $countResult = $this->db->query($countQuery)->row_array();
 
-            $listQuery = "SELECT * FROM appointment ORDER BY appointment_date DESC";
+            $listQuery = "SELECT appointment.*, docfile.name FROM appointment JOIN docfile ON appointment.apcode = docfile.code ORDER BY appointment.appointment_date DESC";
             $listResult = $this->db->query($listQuery)->result_array();
             return [
                 'appntCount' => $countResult['appntCount'],

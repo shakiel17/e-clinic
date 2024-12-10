@@ -112,7 +112,7 @@
                   <img src="<?=base_url('design/assets/img/appntAni.gif');?>" alt="Profile" class="rounded-circle" style="width:100px; height:auto;">
                 </div>
                 <div class="ps-3 text-center">
-                  <h6><?=$appointments['appntCount'];?></h6>
+                  <h6><?=$appntsCount;?></h6>
                   <i class="bi bi-circle-fill" style='color:orange'></i><span class="text-muted small pt-2 ps-1">Scheduled Today</span>
                 </div>
               </div>
@@ -241,10 +241,10 @@
                     ?>
                     <tr>
                       <td><?=$n;?>.</td>
-                      <td><?=$appnt[''];?></td>
-                      <td><?=$appnt[''];?></td>
-                      <td><?=$appnt[''];?></td>
-                      <td><?=$appnt[''];?></td>
+                      <td>DR. <?=$appnt['name'];?> </td>
+                      <td><?=$appnt['firstname'];?> <?=substr($appnt['middlename'], 0, 1);?> <?=$appnt['lastname'];?></td>
+                      <td><?=$appnt['appointment_date'];?></td>
+                      <td><?=$appnt['status'];?></td>
                     </tr>
                     <?php
                       $n++;
