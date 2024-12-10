@@ -1,6 +1,5 @@
 
 <main id="main" class="main">
-
 <div class="pagetitle">
   <h1>Dashboard</h1>
   <nav>
@@ -36,16 +35,15 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Sales <span>| Today</span></h5>
+              <h5 class="card-title">Total Number of Doctors </h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-cart"></i>
+                  <img src="<?=base_url('design/assets/img/DocAni2.gif');?>" alt="Profile" class="rounded-circle" style="width:130px; height:auto;">
                 </div>
-                <div class="ps-3">
-                  <h6>145</h6>
-                  <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                <div class="ps-3 text-center">
+                  <h6><?=$doctors['drCount'];?></h6>
+                  <i class="bi bi-circle-fill" style='color:green'></i> <span class="text-muted small pt-2 ps-1"> Active Doctors</span>
                 </div>
               </div>
             </div>
@@ -71,16 +69,16 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Revenue <span>| This Month</span></h5>
+              <h5 class="card-title">Total Number of Patients</h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-currency-dollar"></i>
+                  <!-- <i class="bi bi-people-fill fs-2 text-info"></i> -->
+                  <img src="<?=base_url('design/assets/img/patientAni.gif');?>" alt="Profile" class="rounded-circle" style="width:130px; height:auto;">
                 </div>
-                <div class="ps-3">
-                  <h6>$3,264</h6>
-                  <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                <div class="ps-3 text-center">
+                  <h6><?=$patients['ptCount'];?></h6>
+                  <i class="bi bi-circle-fill" style='color:purple'></i><span class="text-muted small pt-2 ps-1">Today's Admission</span>
                 </div>
               </div>
             </div>
@@ -107,16 +105,15 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Customers <span>| This Year</span></h5>
+              <h5 class="card-title">Number of Appointments</h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-people"></i>
+                  <img src="<?=base_url('design/assets/img/appntAni.gif');?>" alt="Profile" class="rounded-circle" style="width:100px; height:auto;">
                 </div>
-                <div class="ps-3">
-                  <h6>1244</h6>
-                  <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
+                <div class="ps-3 text-center">
+                  <h6><?=$appointments['appntCount'];?></h6>
+                  <i class="bi bi-circle-fill" style='color:orange'></i><span class="text-muted small pt-2 ps-1">Scheduled Today</span>
                 </div>
               </div>
 
@@ -152,13 +149,13 @@
                 document.addEventListener("DOMContentLoaded", () => {
                   new ApexCharts(document.querySelector("#reportsChart"), {
                     series: [{
-                      name: 'Sales',
+                      name: 'Active Doctors',
                       data: [31, 40, 28, 51, 42, 82, 56],
                     }, {
-                      name: 'Revenue',
+                      name: 'Appointments',
                       data: [11, 32, 45, 32, 34, 52, 41]
                     }, {
-                      name: 'Customers',
+                      name: 'Patients',
                       data: [15, 11, 32, 18, 9, 24, 11]
                     }],
                     chart: {
@@ -225,55 +222,36 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+              <h5 class="card-title">Recent Appointments <span>| Today</span></h5>
 
               <table class="table table-borderless datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">Doctor's Name</th>
+                    <th scope="col">Patient's Name</th>
+                    <th scope="col">Date of Appointment</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row"><a href="#">#2457</a></th>
-                    <td>Brandon Jacob</td>
-                    <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                    <td>$64</td>
-                    <td><span class="badge bg-success">Approved</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2147</a></th>
-                    <td>Bridie Kessler</td>
-                    <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                    <td>$47</td>
-                    <td><span class="badge bg-warning">Pending</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2049</a></th>
-                    <td>Ashleigh Langosh</td>
-                    <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                    <td>$147</td>
-                    <td><span class="badge bg-success">Approved</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2644</a></th>
-                    <td>Angus Grady</td>
-                    <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                    <td>$67</td>
-                    <td><span class="badge bg-danger">Rejected</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2644</a></th>
-                    <td>Raheem Lehner</td>
-                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                    <td>$165</td>
-                    <td><span class="badge bg-success">Approved</span></td>
-                  </tr>
+                  <?php
+                    $n = 0;
+                    foreach ($appointments as $appnt){
+                    ?>
+                    <tr>
+                      <td><?=$n;?>.</td>
+                      <td><?=$appnt[''];?></td>
+                      <td><?=$appnt[''];?></td>
+                      <td><?=$appnt[''];?></td>
+                      <td><?=$appnt[''];?></td>
+                    </tr>
+                    <?php
+                      $n++;
+                    }
+                  ?>
                 </tbody>
+               
               </table>
 
             </div>
@@ -378,59 +356,7 @@
 
         <div class="card-body">
           <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
-          <div class="activity">
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">32 min</div>
-              <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-              <div class="activity-content">
-                Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">56 min</div>
-              <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-              <div class="activity-content">
-                Voluptatem blanditiis blanditiis eveniet
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 hrs</div>
-              <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-              <div class="activity-content">
-                Voluptates corrupti molestias voluptatem
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">1 day</div>
-              <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-              <div class="activity-content">
-                Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 days</div>
-              <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-              <div class="activity-content">
-                Est sit eum reiciendis exercitationem
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">4 weeks</div>
-              <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-              <div class="activity-content">
-                Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-              </div>
-            </div><!-- End activity item-->
-
-          </div>
-
+          <div class="activity" id="activity-container"></div>
         </div>
       </div><!-- End Recent Activity -->
 
@@ -600,44 +526,7 @@
             <li><a class="dropdown-item" href="#">This Year</a></li>
           </ul>
         </div>
-
-        <div class="card-body pb-0">
-          <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
-
-          <div class="news">
-            <div class="post-item clearfix">
-              <img src="assets/img/news-1.jpg" alt="">
-              <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-              <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="assets/img/news-2.jpg" alt="">
-              <h4><a href="#">Quidem autem et impedit</a></h4>
-              <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="assets/img/news-3.jpg" alt="">
-              <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-              <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="assets/img/news-4.jpg" alt="">
-              <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-              <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="assets/img/news-5.jpg" alt="">
-              <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-              <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-            </div>
-
-          </div><!-- End sidebar recent posts-->
-
-        </div>
+        
       </div><!-- End News & Updates -->
 
     </div><!-- End Right side columns -->
@@ -646,3 +535,64 @@
 </section>
 
 </main><!-- End #main -->
+
+<script>
+  // Sample data (replace with data fetched from the backend)
+const activityData = [
+  {
+    time: "24 min",
+    status: "success",
+    content: "Patient A got an appointment with Doc Q"
+  },
+  {
+    time: "56 min",
+    status: "danger",
+    content: "Patient B's follow-up was delayed"
+  },
+  {
+    time: "1 hr",
+    status: "primary",
+    content: "Patient C checked out of Room 101"
+  }
+];
+
+// Function to map status to badge color
+const getStatusClass = (status) => {
+  switch (status) {
+    case "success":
+      return "text-success";
+    case "danger":
+      return "text-danger";
+    case "primary":
+      return "text-primary";
+    case "info":
+      return "text-info";
+    case "warning":
+      return "text-warning";
+    default:
+      return "text-muted";
+  }
+};
+
+// Populate activities
+const populateActivities = (activities) => {
+  const container = document.getElementById("activity-container");
+  container.innerHTML = ""; // Clear existing activities
+
+  activities.forEach((activity) => {
+    const activityItem = `
+      <div class="activity-item d-flex">
+        <div class="activite-label">${activity.time}</div>
+        <i class="bi bi-circle-fill activity-badge ${getStatusClass(activity.status)} align-self-start"></i>
+        <div class="activity-content">
+          ${activity.content}
+        </div>
+      </div>
+    `;
+    container.insertAdjacentHTML("beforeend", activityItem);
+  });
+};
+
+// Call the function with sample data
+populateActivities(activityData);
+</script>

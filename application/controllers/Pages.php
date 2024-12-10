@@ -119,7 +119,7 @@ date_default_timezone_set('Asia/Manila');
             }                  
             if($this->session->user_login){
 
-            }else{
+            } else {
                 redirect(base_url());
             }
             $data['title'] = "Patient Details";            
@@ -399,9 +399,12 @@ public function adminmain(){
     }else{
         redirect(base_url()."admin");
     }
-    $data['title'] = "Patient List";
-    $apcode=$this->session->apcode;
-    $data['items'] = $this->Clinic_model->getAllPatientByDoc($apcode);
+    $data['title'] = "Admin Dashboard";
+    $data['doctors'] = $this->Clinic_model->getAllDoctorsCount();
+    $data['patients'] = $this->Clinic_model->getAllPatientCount();
+    $appointmentsData = $this->Clinic_model->getAppointmentsWithCount();
+    $data['appntsCount'] = $appointmentsData['appntCount'];
+    $data['appointments'] = $appointmentsData['appointments'];
     $this->load->view('includes/header');
     $this->load->view('includes/admin/navbar');
     $this->load->view('includes/admin/sidebar');
@@ -464,7 +467,7 @@ public function manage_doctor(){
     $this->load->view('includes/footer');
 }
 
-public function doctor_profile(){
+public function doctor_profile($code){
     $page = "doctor_profile";
     if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
         show_404();
@@ -474,7 +477,27 @@ public function doctor_profile(){
     }else{
         redirect(base_url()."admin");
     }
-    $data['title'] = "Doctor List";
+    $data['title'] = "Doctor Profile";
+    $data['fth'] = $this->Clinic_model->getAllDoctorProfile($code)[0];
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/'.$page,$data);          
+    $this->load->view('includes/admin/modal');           
+    $this->load->view('includes/footer');
+}
+
+public function manage_user(){
+    $page = "doctor_account";
+    if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+        show_404();
+    }                  
+    if($this->session->admin_login){
+
+    }else{
+        redirect(base_url()."admin");
+    }
+    $data['title'] = "Doctor Profil";
     $data['items'] = $this->Clinic_model->getAllDoctor();
     $this->load->view('includes/header');
     $this->load->view('includes/admin/navbar');

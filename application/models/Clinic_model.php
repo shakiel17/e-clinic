@@ -62,6 +62,10 @@
             $result=$this->db->query("SELECT * FROM docfile ORDER BY lastname ASC");
             return $result->result_array();
         }
+        public function getAllDoctorProfile($code){
+            $result=$this->db->query("SELECT * FROM docfile WHERE code = '$code'");
+            return $result->result_array();
+        }
         public function save_admission($patientidno,$pid,$caseno,$ap){
             $lastname=$this->input->post('lastname');
             $firstname=$this->input->post('firstname');
@@ -215,6 +219,7 @@
                 return false;
             }
         }
+
         public function upload_user_picture(){
             $code=$this->input->post('code');
             $fileName=basename($_FILES["file"]["name"]);
@@ -233,6 +238,7 @@
                 return false;
             }
         }
+
         public function getAllAppointment($code,$date){
             $result=$this->db->query("SELECT * FROM appointment WHERE apcode='$code' AND appointment_date='$date' AND `status`='pending' ORDER BY id ASC");
             return $result->result_array();
@@ -265,5 +271,25 @@
                 return false;
             }
         }
+
+        public function getAllDoctorsCount(){ 
+            $result = $this->db->query("SELECT COUNT(code) AS drCount FROM docfile WHERE `status` = 'Active' AND (username IS NOT NULL AND username != '') AND (password IS NOT NULL AND password != '')");
+            return $result->row_array();
+        }
+        public function getAllPatientCount(){ 
+            $result = $this->db->query("SELECT COUNT(patientidno) AS ptCount FROM admission");
+            return $result->row_array();
+        }
+        public function getAllAppointmentCount(){ 
+            $countQuery = "SELECT COUNT(apcode) AS appntCount FROM appointment";
+            $countResult = $this->db->query($countQuery)->row_array();
+
+            $listQuery = "SELECT * FROM appointment ORDER BY appointment_date DESC";
+            $listResult = $this->db->query($listQuery)->result_array();
+            return [
+                'appntCount' => $countResult['appntCount'],
+                'appointments' => $listResult,
+            ];
+        }        
     }
 ?>
