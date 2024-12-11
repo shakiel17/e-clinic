@@ -123,7 +123,7 @@ date_default_timezone_set('Asia/Manila');
                 redirect(base_url());
             }
             $data['title'] = "Patient Details";            
-            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);
+            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);            
             $this->load->view('includes/header');
             $this->load->view('includes/navbar');
             $this->load->view('includes/sidebar');
@@ -497,7 +497,7 @@ public function manage_user(){
     }else{
         redirect(base_url()."admin");
     }
-    $data['title'] = "Doctor Profil";
+    $data['title'] = "Doctor Profile";
     $data['items'] = $this->Clinic_model->getAllDoctor();
     $this->load->view('includes/header');
     $this->load->view('includes/admin/navbar');

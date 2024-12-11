@@ -35,7 +35,21 @@
                 $status="disabled";
                 $lock="style='display:none;'";
               }
-              ?>
+              ?>                                                
+              <table width="100%" border="0">
+              <form name="f1" action="<?=base_url('patientdetails/'.$item['caseno']);?>" method="POST">
+                <tr>
+                  <td colspan="2"><b>Medical History</b></td>
+                </tr>
+                <tr>
+                  <td><input type="submit" name="viewSettings" value="View"> <input type="submit" name="closeSettings" value="Close"></td>
+                  <td>&nbsp;</td>
+                </tr>
+                </form> 
+              </table>                           
+              <div class="social-links mt-2">
+                <a href="#" onclick="viewPassword()">Password</a>
+              </div>
             </div>
           </div>
 
@@ -55,14 +69,26 @@
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Rx</button>
                 </li>
-
-                <!-- <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                </li>
-
+                <?php
+                if(isset($_POST['viewSettings'])){
+                  $this->session->set_userdata('viewSettings','settings');
+                  redirect(base_url('patientdetails/'.$item['caseno']));
+               }
+               if(isset($_POST['closeSettings'])){
+                $this->session->unset_userdata('viewSettings');
+                redirect(base_url('patientdetails/'.$item['caseno']));
+             }
+                if($this->session->viewSettings){
+                ?>
                 <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li>                
+                <?php
+                }
+                ?>
+                <li class="nav-item" id="passwordchange" style="display:none;">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                </li> -->
+                </li>
 
               </ul>
               <div class="tab-content pt-2">
@@ -169,7 +195,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="tab-pane fade pt-3" id="profile-settings">
+                <div class="tab-pane fade pt-3" id="profile-settings">
 
                   
                   <form>
@@ -209,9 +235,9 @@
                     </div>
                   </form>
 
-                </div> -->
+                </div>
 
-                <!-- <div class="tab-pane fade pt-3" id="profile-change-password">
+                <div class="tab-pane fade pt-3" id="profile-change-password">
                  
                   <form>
 
@@ -241,7 +267,7 @@
                     </div>
                   </form>
 
-                </div> -->
+                </div>
 
               </div><!-- End Bordered Tabs -->
 

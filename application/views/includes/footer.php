@@ -25,6 +25,14 @@
 
   <!-- Template Main JS File -->
   <script src="<?=base_url();?>design/assets/js/main.js"></script>
+  <script>
+    function viewSetting(){
+      document.getElementById('settings').style = 'display:block';
+    }
+    function viewPassword(){
+      document.getElementById('passwordchange').style = 'display:block';
+    }
+  </script>
 
 </body>
 
