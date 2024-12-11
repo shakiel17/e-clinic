@@ -4,8 +4,9 @@
   <h1><?=$title;?></h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-      <li class="breadcrumb-item"><?=$title;?></li>
+      <li class="breadcrumb-item"><a href="<?=base_url('adminmain');?>">Home</a></li>
+      <li class="breadcrumb-item"><a href="<?=base_url('manage_doctor');?>">Doctor List</a></li>
+      <li class="breadcrumb-item" active><?=$title;?></li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -39,12 +40,12 @@
               <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-            </li>
+            </li> -->
 
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Edit Account</button>
             </li>
 
           </ul>
@@ -90,9 +91,7 @@
 
             </div>
 
-            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-              <!-- Profile Edit Form -->
+            <!-- <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
               <form>
                 <div class="row mb-3">
                   <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
@@ -174,18 +173,25 @@
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
-              </form><!-- End Profile Edit Form -->
+              </form>
 
-            </div>
+            </div> -->
 
             <div class="tab-pane fade pt-3" id="profile-change-password">
               <!-- Change Password Form -->
-              <form>
+              <form action="<?=base_url('update_doctor_account');?>" method="POST">                
+                <input type="hidden" name="code" value="<?=$fth['code'];?>">
+                <div class="row mb-3">
+                  <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="username" type="text" class="form-control" id="currentPassword" value="<?=$fth['username'];?>">
+                  </div>
+                </div>
 
                 <div class="row mb-3">
                   <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="password" type="password" class="form-control" id="currentPassword">
+                    <input name="password" type="text" class="form-control" id="currentPassword" value="<?=$fth['password'];?>">
                   </div>
                 </div>
 
@@ -204,7 +210,7 @@
                 </div>
 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Change Password</button>
+                  <button type="submit" class="btn btn-primary">Update Account</button>
                 </div>
               </form><!-- End Change Password Form -->
 

@@ -4,7 +4,8 @@
       <h1><?=$title;?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="<?=base_url();?>">Home</a></li>          
+          <li class="breadcrumb-item"><a href="<?=base_url();?>adminmain">Home</a></li>          
+          <li class="breadcrumb-item active">Doctor List</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -50,7 +51,7 @@
                     <td class="text-center" style="width:15%;"><?=$item['phicacc'];?><br><?=$item['tinbir'];?></td>
                     <td class="text-center" style="width:15%;"><?=$item['emailaddress'];?></td>
                     <td class="text-center align-items-center" style="width:10%;">
-                    <a type="button" class="btn btn-warning" href="<?=base_url('doctor_profile/' . $item['code']); ?>" target="_blank">
+                    <a type="button" class="btn btn-warning" href="<?=base_url('doctor_profile/' . $item['code']); ?>">
                         <i class="bi bi-eye-fill"></i>
                     </a>
                     </td>

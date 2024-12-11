@@ -290,6 +290,23 @@
                 'appntCount' => $countResult['appntCount'],
                 'appointments' => $listResult,
             ];
-        }        
+        }   
+        public function update_doctor_account(){
+            $code=$this->input->post('code');
+            $username=$this->input->post('username');
+            $password=$this->input->post('password');
+            $newpassword=$this->input->post('newpassword');
+            $renewpassword=$this->input->post('renewpassword');
+            if($newpassword==$renewpassword){
+                $result=$this->db->query("UPDATE docfile SET username='$username',`password`='$newpassword' WHERE code='$code'");
+            }else{
+                return false;
+            }
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }     
     }
 ?>

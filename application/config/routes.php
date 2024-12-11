@@ -57,6 +57,7 @@ $route['admin_logout'] = 'pages/admin_logout';
 $route['manage_doctor'] = 'pages/manage_doctor';
 $route['manage_user'] = 'pages/manage_user';
 $route['doctor_profile/(:any)'] = 'pages/doctor_profile/$1';
+$route['update_doctor_account'] = 'pages/update_doctor_account';
 
 //start of user route
 $route['cancel_appointment/(:any)/(:any)'] = 'pages/cancel_appointment/$1/$2';
