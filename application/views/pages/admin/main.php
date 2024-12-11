@@ -277,7 +277,7 @@
             </div>
 
             <div class="card-body pb-0">
-              <h5 class="card-title">Top Selling <span>| Today</span></h5>
+              <h5 class="card-title">Active Doctors <span>| Today</span></h5>
 
               <table class="table table-borderless">
                 <thead>
