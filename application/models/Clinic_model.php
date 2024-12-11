@@ -271,26 +271,29 @@
                 return false;
             }
         }
-
+        
+        //admin dashboard query 
         public function getAllDoctorsCount(){ 
             $result = $this->db->query("SELECT COUNT(code) AS drCount FROM docfile WHERE `status` = 'Active' AND (username IS NOT NULL AND username != '') AND (password IS NOT NULL AND password != '')");
             return $result->row_array();
         }
+
         public function getAllPatientCount(){ 
             $result = $this->db->query("SELECT COUNT(patientidno) AS ptCount FROM admission");
             return $result->row_array();
         }
-        public function getAppointmentsWithCount(){ 
+
+        public function getAppointmentsWithCount(){
             $countQuery = "SELECT COUNT(apcode) AS appntCount FROM appointment";
             $countResult = $this->db->query($countQuery)->row_array();
-
             $listQuery = "SELECT appointment.*, docfile.name FROM appointment JOIN docfile ON appointment.apcode = docfile.code ORDER BY appointment.appointment_date DESC";
             $listResult = $this->db->query($listQuery)->result_array();
             return [
                 'appntCount' => $countResult['appntCount'],
                 'appointments' => $listResult,
             ];
-        }   
+        }
+        
         public function update_doctor_account(){
             $code=$this->input->post('code');
             $username=$this->input->post('username');

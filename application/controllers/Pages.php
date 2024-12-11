@@ -474,7 +474,7 @@ public function doctor_profile($code){
     }                  
     if($this->session->admin_login){
 
-    }else{
+    } else {
         redirect(base_url()."admin");
     }
     $data['title'] = "Doctor Profile";
