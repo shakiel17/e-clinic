@@ -35,8 +35,9 @@
                 $status="disabled";
                 $lock="style='display:none;'";
               }
-              ?>                                                
-              <table width="100%" border="0">              
+              ?>         
+                                                  
+              <table width="100%" border="0" style="margin-top:20px;">              
                 <tr>
                   <td colspan="3"><b>Admission History</b></td>
                 </tr>
@@ -49,7 +50,7 @@
                 }
               
                 $past_hist=$this->Clinic_model->getMedicalHistory($item['patientidno'],$item['caseno'],$item['dateadmit']);
-                if(count($past_hist) > 0){
+                if(count($past_hist) > 0 && $item['past_history']==""){
                   foreach($past_hist as $phistory){
                     $phist=$phistory['past_history'];                  
                   }                  
@@ -69,7 +70,7 @@
                         <?=date('m/d/Y',strtotime($row['dateadmit']));?>
                       </td>
                       <td>
-                        <a href="<?=base_url();?>medical_history/<?=$item['caseno'];?>/<?=$row['caseno'];?>">View</a>
+                        <a href="<?=base_url();?>medical_history/<?=$item['caseno'];?>/<?=$row['caseno'];?>" class="btn btn-success btn-sm">Open</a>
                       </td>
                     </tr>                
                   <?php
@@ -293,66 +294,56 @@
                 </div>
 
                 <div class="tab-pane fade <?=$history_show;?> <?=$history;?> pt-3" id="profile-settings">
-                  <?php
-                  $complaint="";
-                  $items=$this->Clinic_model->getRxHistory($casenum);
-                  foreach($items as $row){
-                    $complaint=$row['chief_complaint'];
-                  }
-                  ?>
-                    <div class="row mb-3">
-                    <div style="width:500px;">
-                      <table width="100%">
-                          <tr>
-                              <td align="center"><b style="font-size:18px;">Kidapawan Medical Specialists Center, Inc.</b><br>Brgy. Sudapin, Kidapawan City</td>
-                          </tr>
-                      </table>
-                      <br>
-                      <table width="100%" style="font-size:16px;" cellpadding="1">
-                          <tr>
-                              <td><b>Name:</b> <u><?=$item['firstname'];?> <?=$item['lastname'];?> <?=$item['suffix'];?></u></td>
-                              <td align="right"><b>Date:</b> <u><?=date('m/d/Y');?></u></td>
-                          </tr>
-                          <tr>
-                              <td colspan="2"><b>Address:</b> <u><?=$item['address'];?></u></td>                        
-                          </tr>
-                          <tr>
-                              <td colspan="2"><b>Diagnosis:</b> <u><?=$complaint;?></u></td>                        
-                          </tr>
-                      </table>
-                      <hr>
-                      <h1>Rx</h1>
-                      <table width="100%" style="font-size:16px;" cellpadding="1">
-                        <?php
-                          $items=$this->Clinic_model->getRxHistory($casenum);
-                          foreach($items as $item){
+                          <?php
+                            $details=$this->Clinic_model->getPatientDetails($casenum);
                           ?>
+                          <h5 class="card-title">Past Medical History</h5>
+                          <p class="small fst-italic">                    
+                              <?=$details['past_history'];?>
+                          </p>
+                          <h5 class="card-title">Diagnosis</h5>
+                          <p class="small fst-italic">                    
+                              <?=$details['diagnosis'];?>
+                          </p>
+                          <h5 class="card-title">Medications</h5>
+                                             
+                          <table width="100%" border="0" style="font-size:16px;" cellpadding="1">
+                            <tr>        
+                              <td width="10">&nbsp;</td>                      
+                              <td colspan="2"><b>Description</b></td>
+                              <td align="right"><b>Qty</b></td>                              
+                            </tr>
+                        <?php
+                          $med=$this->Clinic_model->getRxHistory($casenum);
+                          foreach($med as $item){
+                          ?>                          
                           <tr>
                               <td width="10">&nbsp;</td>
                               <td colspan="2"><?=$item['description'];?><td>
-                              <td align="right">#<?=$item['quantity'];?></td>
+                              <td>#<?=$item['quantity'];?></td>
                           </tr>                          
                           <tr>
-                              <td width="10">&nbsp;</td>
-                              <td width="10">&nbsp;</td>
-                              <td colspan="2"><?=$item['remarks'];?><td>            
+                              <td >&nbsp;</td>
+                              <td colspan="2" style="padding-left:20px;"><?=$item['remarks'];?></td>
+                              <td><td>            
                           </tr>
                           <tr>
-                            <td colspan="3">&nbsp;</td>
+                            <td colspan="4">&nbsp;</td>
                           </tr>
                           <?php
                           }
                           ?>
-                      </table>                      
-                      <hr>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>                  
-
+                      </table>
+                          
+                          <h5 class="card-title">Diagnostics</h5>
+                          <p class="small fst-italic">
+                             
+                          </p>
                 </div>
-                
+
+                    <!-- <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>                   -->
 
               </div><!-- End Bordered Tabs -->
 
