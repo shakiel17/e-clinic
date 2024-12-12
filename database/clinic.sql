@@ -45,6 +45,9 @@ CREATE TABLE `admission` (
   `dateadmit` date DEFAULT NULL,
   `timeadmit` time DEFAULT NULL,
   `chief_complaint` text DEFAULT NULL,
+  `diagnosis` text DEFAULT NULL,
+  `past_history` text DEFAULT NULL,
+  `physical_exam` text DEFAULT NULL,
   `civil_status` varchar(100) DEFAULT NULL,
   `address` text DEFAULT NULL,
   `contactno` varchar(100) DEFAULT NULL,
@@ -52,9 +55,13 @@ CREATE TABLE `admission` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `admission` */
+
+insert  into `admission`(`id`,`patientidno`,`caseno`,`ap`,`dateadmit`,`timeadmit`,`chief_complaint`,`diagnosis`,`past_history`,`physical_exam`,`civil_status`,`address`,`contactno`,`status`,`datearray`,`timearray`) values 
+(8,'PN20241212100729','CN20241212100729','100002','2024-12-11','10:07:29','Fever','Sige mn gud og selpon','Iyang papa dakog tiyan',NULL,'married','Purok 7C, Sudapin, Kidapawan City','09107524284','discharged','2024-12-12','10:07:29'),
+(9,'PN20241212100729','CN20241212105838','100002','2024-12-12','10:58:38','Cough','Kusog kaau mokaon og chicaron','Iyang papa dakog tiyan tapos high blood pa jud kay walay sud-an pirmi','Gisumbag naq ang baba kay saba kaau','married','Purok 7C, Sudapin, Kidapawan City','09107524284','Active','2024-12-12','10:58:38');
 
 /*Table structure for table `appointment` */
 
@@ -73,9 +80,24 @@ CREATE TABLE `appointment` (
   `timearray` time DEFAULT NULL,
   `status` varchar(50) DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `appointment` */
+
+/*Table structure for table `diagnostics` */
+
+DROP TABLE IF EXISTS `diagnostics`;
+
+CREATE TABLE `diagnostics` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `caseno` varchar(100) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `datearray` date DEFAULT NULL,
+  `timearray` time DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `diagnostics` */
 
 /*Table structure for table `docfile` */
 
@@ -333,9 +355,12 @@ CREATE TABLE `patientprofile` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `patientprofile` */
+
+insert  into `patientprofile`(`id`,`patientidno`,`lastname`,`firstname`,`middlename`,`suffix`,`birthdate`,`gender`,`is_senior`,`datearray`,`timearray`) values 
+(4,'PN20241212100729','Aboy','Eczekiel','Hermosilla','','1986-05-14','Male',0,'2024-12-12','10:07:29');
 
 /*Table structure for table `productout` */
 
@@ -350,7 +375,7 @@ CREATE TABLE `productout` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `productout` */
 
