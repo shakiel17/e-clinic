@@ -36,20 +36,48 @@
                 $lock="style='display:none;'";
               }
               ?>                                                
-              <table width="100%" border="0">
-              <form name="f1" action="<?=base_url('patientdetails/'.$item['caseno']);?>" method="POST">
+              <table width="100%" border="0">              
                 <tr>
-                  <td colspan="2"><b>Medical History</b></td>
+                  <td colspan="3"><b>Admission History</b></td>
                 </tr>
-                <tr>
-                  <td><input type="submit" name="viewSettings" value="View"> <input type="submit" name="closeSettings" value="Close"></td>
-                  <td>&nbsp;</td>
-                </tr>
-                </form> 
-              </table>                           
-              <div class="social-links mt-2">
-                <a href="#" onclick="viewPassword()">Password</a>
-              </div>
+                <?php
+                if($casenum==""){
+                  $casenum = $item['caseno'];                                    
+                }
+                if($casenum==$item['caseno']){
+                  $history_show="";
+                }
+              
+                $past_hist=$this->Clinic_model->getMedicalHistory($item['patientidno'],$item['caseno'],$item['dateadmit']);
+                if(count($past_hist) > 0){
+                  foreach($past_hist as $phistory){
+                    $phist=$phistory['past_history'];                  
+                  }                  
+                }else{
+                  $phist=$item['past_history'];
+                }                
+                $mhistory=$this->Clinic_model->getPatientMedicalHistory($item['patientidno'],$item['dateadmit']);
+                if(count($mhistory) > 0){
+                  foreach($mhistory as $row){
+                    if($item['caseno'] <> $row['caseno']){
+                ?>
+                    <tr>
+                      <td>
+                        <?=$row['caseno'];?>
+                      </td>
+                      <td>
+                        <?=date('m/d/Y',strtotime($row['dateadmit']));?>
+                      </td>
+                      <td>
+                        <a href="<?=base_url();?>medical_history/<?=$item['caseno'];?>/<?=$row['caseno'];?>">View</a>
+                      </td>
+                    </tr>                
+                  <?php
+                    }
+                  }
+                }
+                ?>                
+              </table>              
             </div>
           </div>
 
@@ -63,28 +91,20 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                  <a href="<?=base_url();?>patientdetails/<?=$item['caseno'];?>" class="nav-link <?=$overview;?>">Overview</a>
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Rx</button>
+                  <a href="<?=base_url();?>view_rx/<?=$item['caseno'];?>" class="nav-link <?=$rx;?>">Rx</a>
                 </li>
-                <?php
-                if(isset($_POST['viewSettings'])){
-                  $this->session->set_userdata('viewSettings','settings');
-                  redirect(base_url('patientdetails/'.$item['caseno']));
-               }
-               if(isset($_POST['closeSettings'])){
-                $this->session->unset_userdata('viewSettings');
-                redirect(base_url('patientdetails/'.$item['caseno']));
-             }
-                if($this->session->viewSettings){
+                <?php                
+                //if($history <> ""){
                 ?>
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                  <a href="<?=base_url();?>medical_history/<?=$item['caseno'];?>/<?=$casenum;?>" class="nav-link <?=$history;?>">Medical History</a>
                 </li>                
                 <?php
-                }
+               // }
                 ?>
                 <li class="nav-item" id="passwordchange" style="display:none;">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
@@ -93,7 +113,27 @@
               </ul>
               <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                <div class="tab-pane fade <?=$overview_show;?> <?=$overview;?> profile-overview" id="profile-overview">
+                
+                <?=form_open(base_url()."save_medical_history");?>
+                <input type="hidden" name="caseno" value="<?=$item['caseno'];?>">
+                  <h5 class="card-title">Past Medical History</h5>
+                  <p class="small fst-italic">                    
+                      <textarea name="medical_history" class="form-control" rows="3" required><?=$phist;?></textarea>                    
+                  </p>
+                  <h5 class="card-title">Diagnosis</h5>
+                  <p class="small fst-italic">                    
+                      <textarea name="diagnosis" class="form-control" rows="3" required><?=$item['diagnosis'];?></textarea>                    
+                  </p>
+                  <h5 class="card-title">Physical Examination</h5>
+                  <p class="small fst-italic">                    
+                      <textarea name="pExam" class="form-control" rows="3" required><?=$item['physical_exam'];?></textarea>                    
+                  </p>
+                  <div class="text-center">
+                      <button type="submit" class="btn btn-primary" <?=$status;?>>Save Changes</button>
+                    </div>
+                  <?=form_close();?>                
+
                   <h5 class="card-title">Chief Complaint</h5>
                   <p class="small fst-italic"><?=$item['chief_complaint'];?></p>
 
@@ -141,7 +181,7 @@
 
                 </div>
 
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                <div class="tab-pane fade <?=$rx_show;?> <?=$rx;?> profile-edit pt-3" id="profile-edit">
                     <div class="row mb-3">
                         <?=form_open(base_url()."add_rx");?>
                         <input type="hidden" name="caseno" value="<?=$item['caseno'];?>">
@@ -165,8 +205,65 @@
                         </table>
                         <?=form_close();?>
                     </div>
-                    <div class="row mt-2">
-                        <b>Rx History</b><br>
+                    <div class="row mt-5">
+                    <div style="width:500px;">
+                      <table width="100%">
+                          <tr>
+                              <td align="center"><b style="font-size:18px;">Kidapawan Medical Specialists Center, Inc.</b><br>Brgy. Sudapin, Kidapawan City</td>
+                          </tr>
+                      </table>
+                      <br>
+                      <table width="100%" style="font-size:16px;" cellpadding="1">
+                          <tr>
+                              <td><b>Name:</b> <u><?=$item['firstname'];?> <?=$item['lastname'];?> <?=$item['suffix'];?></u></td>
+                              <td align="right"><b>Date:</b> <u><?=date('m/d/Y');?></u></td>
+                          </tr>
+                          <tr>
+                              <td colspan="2"><b>Address:</b> <u><?=$item['address'];?></u></td>                        
+                          </tr>
+                      </table>
+                      <hr>
+                      <h1>Rx</h1>
+                      <table width="100%" style="font-size:16px;" cellpadding="1">
+                        <?php
+                          $items=$this->Clinic_model->getRxHistory($item['caseno']);
+                          foreach($items as $item){
+                          ?>
+                          <tr>
+                              <td width="10">&nbsp;</td>
+                              <td colspan="2"><?=$item['description'];?><td>
+                              <td align="right">#<?=$item['quantity'];?></td>
+                          </tr>                          
+                          <tr>
+                              <td width="10">&nbsp;</td>
+                              <td width="10">&nbsp;</td>
+                              <td colspan="2"><?=$item['remarks'];?><td>            
+                          </tr>
+                          <tr>
+                            <td colspan="3">&nbsp;</td>
+                          </tr>
+                          <?php
+                          }
+                          ?>
+                      </table>                      
+                      <hr>                                            
+                      <a href="<?=base_url();?>print_rx/<?=$item['caseno'];?>" class="btn btn-primary btn-sm" target="_blank">Print Rx</a>
+                      <!-- <table width="100%" style="font-size:16px;" cellpadding="1">                        
+                          <tr>
+                              <td width="40%">&nbsp;</td>
+                              <td style="border-bottom:1px solid;" align="center"><?=$item['name'];?>, MD</td>
+                          </tr>
+                          <tr>
+                              <td width="40%">&nbsp;</td>
+                              <td><b>PTR No.</b> <u><?=$item['ptrno'];?></u></td>
+                          </tr>
+                          <tr>
+                              <td width="40%">&nbsp;</td>
+                              <td><b>S2 No.</b> <u><?=$item['s2no'];?></u></td>
+                          </tr>
+                      </table> -->
+                  </div>
+                        <!-- <b>Rx History</b><br>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -191,83 +288,71 @@
                                 }
                                 ?>
                             </tbody>
-                        </table>
+                        </table> -->
                     </div>
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-settings">
-
-                  
-                  <form>
-
+                <div class="tab-pane fade <?=$history_show;?> <?=$history;?> pt-3" id="profile-settings">
+                  <?php
+                  $complaint="";
+                  $items=$this->Clinic_model->getRxHistory($casenum);
+                  foreach($items as $row){
+                    $complaint=$row['chief_complaint'];
+                  }
+                  ?>
                     <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
+                    <div style="width:500px;">
+                      <table width="100%">
+                          <tr>
+                              <td align="center"><b style="font-size:18px;">Kidapawan Medical Specialists Center, Inc.</b><br>Brgy. Sudapin, Kidapawan City</td>
+                          </tr>
+                      </table>
+                      <br>
+                      <table width="100%" style="font-size:16px;" cellpadding="1">
+                          <tr>
+                              <td><b>Name:</b> <u><?=$item['firstname'];?> <?=$item['lastname'];?> <?=$item['suffix'];?></u></td>
+                              <td align="right"><b>Date:</b> <u><?=date('m/d/Y');?></u></td>
+                          </tr>
+                          <tr>
+                              <td colspan="2"><b>Address:</b> <u><?=$item['address'];?></u></td>                        
+                          </tr>
+                          <tr>
+                              <td colspan="2"><b>Diagnosis:</b> <u><?=$complaint;?></u></td>                        
+                          </tr>
+                      </table>
+                      <hr>
+                      <h1>Rx</h1>
+                      <table width="100%" style="font-size:16px;" cellpadding="1">
+                        <?php
+                          $items=$this->Clinic_model->getRxHistory($casenum);
+                          foreach($items as $item){
+                          ?>
+                          <tr>
+                              <td width="10">&nbsp;</td>
+                              <td colspan="2"><?=$item['description'];?><td>
+                              <td align="right">#<?=$item['quantity'];?></td>
+                          </tr>                          
+                          <tr>
+                              <td width="10">&nbsp;</td>
+                              <td width="10">&nbsp;</td>
+                              <td colspan="2"><?=$item['remarks'];?><td>            
+                          </tr>
+                          <tr>
+                            <td colspan="3">&nbsp;</td>
+                          </tr>
+                          <?php
+                          }
+                          ?>
+                      </table>                      
+                      <hr>
                     </div>
 
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form>
+                    </div>                  
 
                 </div>
-
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                 
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
-                    </div>
-                  </form>
-
-                </div>
+                
 
               </div><!-- End Bordered Tabs -->
 

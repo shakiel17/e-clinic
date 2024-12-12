@@ -123,7 +123,66 @@ date_default_timezone_set('Asia/Manila');
                 redirect(base_url());
             }
             $data['title'] = "Patient Details";            
-            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);            
+            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);
+            $data['rx'] = "";
+            $data['rx_show'] = "";
+            $data['overview'] = "active";
+            $data['overview_show'] = "show";
+            $data['history'] = "";
+            $data['history_show'] = "";
+            $data['casenum'] = "";            
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function view_rx($caseno){
+            $page = "patientdetails";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            } else {
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Details";            
+            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);
+            $data['rx'] = "active";
+            $data['rx_show'] = "show";
+            $data['overview'] = "";
+            $data['overview_show'] = "";
+            $data['history'] = "";
+            $data['history_show'] = "";
+            $data['casenum'] = "";
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+        public function medical_history($caseno,$casenum){
+            $page = "patientdetails";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            } else {
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Details";            
+            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);
+            $data['rx'] = "";
+            $data['rx_show'] = "";
+            $data['overview'] = "";
+            $data['overview_show'] = "";
+            $data['history'] = "active";
+            $data['history_show'] = "show";
+            $data['casenum'] = $casenum;
             $this->load->view('includes/header');
             $this->load->view('includes/navbar');
             $this->load->view('includes/sidebar');
@@ -155,9 +214,9 @@ date_default_timezone_set('Asia/Manila');
             $caseno=$this->input->post('caseno');
             $add=$this->Clinic_model->save_rx();
             if($add){
-                echo "<script>alert('Rx successfully created!');window.location='".base_url()."patientdetails/$caseno';</script>";
+                echo "<script>window.location='".base_url()."view_rx/$caseno';</script>";
             }else{
-                echo "<script>alert('Unable to create Rx!');window.location='".base_url()."patientdetails/$caseno';</script>";
+                echo "<script>alert('Unable to create Rx!');window.location='".base_url()."view_rx/$caseno';</script>";
             }
         }
         public function delete_rx($id,$caseno){            
@@ -178,7 +237,7 @@ date_default_timezone_set('Asia/Manila');
             }else{
                 redirect(base_url());
             }                                    
-            $data['item'] = $this->Clinic_model->getSingleRx($id);
+            $data['items'] = $this->Clinic_model->getSingleRx($id);
             $this->load->view('pages/'.$page,$data);                      
 
         }
@@ -384,6 +443,15 @@ date_default_timezone_set('Asia/Manila');
                 echo "<script>alert('Appointment successfully cancelled!');window.location='".base_url()."view_appointment/$datearray';</script>";
             }else{
                 echo "<script>alert('Unable to cancel appointment!');window.location='".base_url()."view_appointment/$datearray';</script>";
+            }
+        }
+        public function save_medical_history(){
+            $caseno=$this->input->post('caseno');
+            $add=$this->Clinic_model->save_medical_history();
+            if($add){
+                echo "<script>alert('Submit success!');window.location='".base_url()."patientdetails/$caseno';</script>";
+            }else{
+                echo "<script>alert('Submit failed!');window.location='".base_url()."patientdetails/$caseno';</script>";
             }
         }
 // end of user functions

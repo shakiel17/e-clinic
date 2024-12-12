@@ -117,7 +117,7 @@
             return $result->row_array();
         }
         public function getRxHistory($caseno){
-            $result=$this->db->query("SELECT * FROM productout WHERE caseno='$caseno' ORDER BY datearray ASC");
+            $result=$this->db->query("SELECT po.*,a.chief_complaint FROM productout po INNER JOIN admission a ON a.caseno=po.caseno WHERE a.caseno='$caseno' ORDER BY po.datearray ASC");
             return $result->result_array();
         }
         public function save_rx(){
@@ -143,8 +143,8 @@
             }
         }
         public function getSingleRx($id){
-            $result=$this->db->query("SELECT pp.*,po.*,a.*,d.name,d.ptrno,d.s2no FROM productout po INNER JOIN admission a ON a.caseno=po.caseno INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno INNER JOIN docfile d ON d.code=a.ap WHERE po.id='$id'");
-            return $result->row_array();
+            $result=$this->db->query("SELECT pp.*,po.*,a.*,d.name,d.ptrno,d.s2no FROM productout po INNER JOIN admission a ON a.caseno=po.caseno INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno INNER JOIN docfile d ON d.code=a.ap WHERE po.caseno='$id'");
+            return $result->result_array();
         }
         public function getPatientProfile($patientidno){
             $result=$this->db->query("SELECT pp.*,a.* FROM admission a INNER JOIN patientprofile pp ON pp.patientidno=a.patientidno WHERE pp.patientidno='$patientidno' GROUP BY pp.patientidno ORDER BY a.dateadmit DESC LIMIT 1");
@@ -310,6 +310,26 @@
             }else{
                 return false;
             }
-        }     
+        }
+        public function getPatientMedicalHistory($patientidno,$dateadmit){
+            $result=$this->db->query("SELECT * FROM admission WHERE patientidno='$patientidno' AND dateadmit < '$dateadmit'");
+            return $result->result_array();
+        }
+        public function getMedicalHistory($patientidno,$caseno,$dateadmit){
+            $result=$this->db->query("SELECT * FROM admission WHERE patientidno='$patientidno' AND caseno <> '$caseno' AND dateadmit < '$dateadmit' ORDER BY dateadmit DESC");
+            return $result->result_array();            
+        }
+        public function save_medical_history(){
+            $caseno=$this->input->post('caseno');
+            $history=$this->input->post('medical_history');
+            $diagnosis=$this->input->post('diagnosis');
+            $pExam=$this->input->post('pExam');
+            $result=$this->db->query("UPDATE admission SET diagnosis='$diagnosis',past_history='$history',physical_exam='$pExam' WHERE caseno='$caseno'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>
