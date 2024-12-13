@@ -130,6 +130,8 @@ date_default_timezone_set('Asia/Manila');
             $data['overview_show'] = "show";
             $data['history'] = "";
             $data['history_show'] = "";
+            $data['diagnostic'] = "";
+            $data['diagnostic_show'] = "";
             $data['casenum'] = "";            
             $this->load->view('includes/header');
             $this->load->view('includes/navbar');
@@ -156,6 +158,8 @@ date_default_timezone_set('Asia/Manila');
             $data['overview_show'] = "";
             $data['history'] = "";
             $data['history_show'] = "";
+            $data['diagnostic'] = "";
+            $data['diagnostic_show'] = "";
             $data['casenum'] = "";
             $this->load->view('includes/header');
             $this->load->view('includes/navbar');
@@ -182,7 +186,38 @@ date_default_timezone_set('Asia/Manila');
             $data['overview_show'] = "";
             $data['history'] = "active";
             $data['history_show'] = "show";
+            $data['diagnostic'] = "";
+            $data['diagnostic_show'] = "";
             $data['casenum'] = $casenum;
+            $this->load->view('includes/header');
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);          
+            $this->load->view('includes/modal');           
+            $this->load->view('includes/footer');
+        }
+
+        public function view_diagnostic($caseno){
+            $page = "patientdetails";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }                  
+            if($this->session->user_login){
+
+            } else {
+                redirect(base_url());
+            }
+            $data['title'] = "Patient Details";            
+            $data['item'] = $this->Clinic_model->getPatientDetails($caseno);
+            $data['rx'] = "";
+            $data['rx_show'] = "";
+            $data['overview'] = "";
+            $data['overview_show'] = "";
+            $data['history'] = "";
+            $data['history_show'] = "";
+            $data['diagnostic'] = "active";
+            $data['diagnostic_show'] = "show";
+            $data['casenum'] = "";
             $this->load->view('includes/header');
             $this->load->view('includes/navbar');
             $this->load->view('includes/sidebar');
@@ -452,6 +487,23 @@ date_default_timezone_set('Asia/Manila');
                 echo "<script>alert('Submit success!');window.location='".base_url()."patientdetails/$caseno';</script>";
             }else{
                 echo "<script>alert('Submit failed!');window.location='".base_url()."patientdetails/$caseno';</script>";
+            }
+        }
+        public function add_diagnostic(){
+            $caseno=$this->input->post('caseno');
+            $add=$this->Clinic_model->save_diagnostic();
+            if($add){
+                echo "<script>alert('Diagnostic successfully saved!');window.location='".base_url()."view_diagnostic/$caseno';</script>";
+            }else{
+                echo "<script>alert('Unable to save diagnostic!');window.location='".base_url()."view_diagnostic/$caseno';</script>";
+            }
+        }
+        public function remove_diagnostic($id,$caseno){            
+            $add=$this->Clinic_model->remove_diagnostic($id);
+            if($add){
+                echo "<script>alert('Diagnostic successfully removed!');window.location='".base_url()."view_diagnostic/$caseno';</script>";
+            }else{
+                echo "<script>alert('Unable to remove diagnostic!');window.location='".base_url()."view_diagnostic/$caseno';</script>";
             }
         }
 // end of user functions

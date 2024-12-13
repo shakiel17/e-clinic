@@ -60,6 +60,9 @@ $route['doctor_profile/(:any)'] = 'pages/doctor_profile/$1';
 $route['update_doctor_account'] = 'pages/update_doctor_account';
 
 //start of user route
+$route['remove_diagnostic/(:any)/(:any)'] = 'pages/remove_diagnostic/$1/$2';
+$route['add_diagnostic'] = 'pages/add_diagnostic';
+$route['view_diagnostic/(:any)'] = 'pages/view_diagnostic/$1';
 $route['save_medical_history'] = 'pages/save_medical_history';
 $route['view_rx/(:any)'] = 'pages/view_rx/$1';
 $route['medical_history/(:any)/(:any)'] = 'pages/medical_history/$1/$2';

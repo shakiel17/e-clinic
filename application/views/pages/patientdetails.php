@@ -98,18 +98,13 @@
                 <li class="nav-item">
                   <a href="<?=base_url();?>view_rx/<?=$item['caseno'];?>" class="nav-link <?=$rx;?>">Rx</a>
                 </li>
-                <?php                
-                //if($history <> ""){
-                ?>
+                <li class="nav-item" id="passwordchange">
+                  <a class="nav-link" href="<?=base_url();?>view_diagnostic/<?=$item['caseno'];?>">Diagnostics</a>
+                </li>                
                 <li class="nav-item">
                   <a href="<?=base_url();?>medical_history/<?=$item['caseno'];?>/<?=$casenum;?>" class="nav-link <?=$history;?>">Medical History</a>
-                </li>                
-                <?php
-               // }
-                ?>
-                <li class="nav-item" id="passwordchange" style="display:none;">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                </li>
+                </li>                                
+                
 
               </ul>
               <div class="tab-content pt-2">
@@ -291,6 +286,36 @@
                             </tbody>
                         </table> -->
                     </div>
+                </div>
+
+                <div class="tab-pane fade <?=$diagnostic_show;?> <?=$diagnostic;?> pt-3" id="profile-settings">                
+                    <div class="row mb-3">
+                        <?=form_open(base_url()."add_diagnostic");?>
+                        <input type="hidden" name="caseno" value="<?=$item['caseno'];?>">
+                        <table width="100%" border="0" cellspacing="2">
+                            <tr>
+                                <td><b>Details</b></td>
+                                <td><textarea name="remarks" rows="5" class="form-control"></textarea></td>
+                            </tr>                            
+                            <tr>
+                                <td></td>
+                                <td><br><input type="submit" class="btn btn-primary" value="Submit" <?=$status;?>></td>
+                            </tr>
+                        </table>
+                        <?=form_close();?>
+                    </div>
+                          <?php
+                            $details=$this->Clinic_model->getAllDiagnostics($item['caseno']);
+                          ?>                          
+                          
+                          <h5 class="card-title">Diagnostics</h5>
+                          <p class="small fst-italic">
+                             <?php
+                             foreach($details as $res){
+                              echo "<a href='".base_url('remove_diagnostic/'.$res['id'].'/'.$item['caseno'])."' class='btn btn-danger btn-sm'>X</a> ".$res['remarks']."<br><br>";
+                             }
+                             ?>
+                          </p>
                 </div>
 
                 <div class="tab-pane fade <?=$history_show;?> <?=$history;?> pt-3" id="profile-settings">

@@ -331,5 +331,29 @@
                 return false;
             }
         }
+        public function getAllDiagnostics($caseno){
+            $result=$this->db->query("SELECT * FROM diagnostics WHERE caseno='$caseno'");
+            return $result->result_array();            
+        }
+        public function save_diagnostic(){
+            $caseno=$this->input->post('caseno');
+            $remarks=$this->input->post('remarks');
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            $result=$this->db->query("INSERT INTO diagnostics(caseno,remarks,datearray,timearray) VALUES('$caseno','$remarks','$date','$time')");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function remove_diagnostic($id){
+            $result=$this->db->query("DELETE FROM diagnostics WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }            
+        }
     }
 ?>
