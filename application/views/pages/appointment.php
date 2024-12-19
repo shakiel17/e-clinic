@@ -15,55 +15,26 @@
         <div class="col-lg-12">
 
           <div class="card table-responsive py-5">
-            <div class="card-body">
-              <?=form_open(base_url()."search_appointment");?>
-              <table width="100%" border="0">
-                  <tr>                    
-                    <td width="12%"><b>Select Month/Year</b></td>
-                    <td>
-                      <select name="month" class="form-select" required>
-                        <option value="">Select Month</option>
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                      </select>
-                    </td>
-                    <td>
-                      <?php
-                      $year=date('Y');
-                      $year2=date('Y',strtotime('1 year',strtotime($year)));
-                      ?>
-                      <select name="year" class="form-select" required>
-                        <option value="">Select Year</option>
-                        <?php
-                        for($i=$year;$i<=$year2;$i++){
-                                                  ?>
-                        <option value="<?=$i;?>"><?=$i;?></option>                        
-                        <?php
-                        }
-                        ?>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="submit" class="btn btn-success" value="Search">
-                      </td>
-                  </tr>
-              </table>      
-              <?=form_close();?>        
+            <div class="card-body">                      
               <!-- Table with stripped rows -->
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <td colspan="7" align="center"><b><?=date('F Y',strtotime($datenow));?></b></td>
+                    <td colspan="3" align="right" style="border-right:0;">
+                      <?=form_open(base_url('search_appointment'));?>
+                      <input type="hidden" name="month" value="<?=date('m',strtotime('-1 month',strtotime($datenow)));?>">
+                      <input type="hidden" name="year" value="<?=date('Y',strtotime('-1 month',strtotime($datenow)));?>">
+                      <button type="submit" class="btn btn-primary btn-sm"><< Previous</button>
+                      <?=form_close();?>
+                    </td>
+                    <td align="center" style="border-left:0; border-right:0;"><b><?=date('F Y',strtotime($datenow));?></b></td>
+                    <td colspan="3" align="left" style="border-left:0;">
+                    <?=form_open(base_url('search_appointment'));?>
+                      <input type="hidden" name="month" value="<?=date('m',strtotime('1 month',strtotime($datenow)));?>">
+                      <input type="hidden" name="year" value="<?=date('Y',strtotime('1 month',strtotime($datenow)));?>">
+                      <button type="submit" class="btn btn-primary btn-sm">Next >></button>
+                      <?=form_close();?>
+                    </td>
                   </tr>
                   <tr>
                       <td align="center"><b>SUN</b></td>
