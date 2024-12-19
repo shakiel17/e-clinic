@@ -9,8 +9,8 @@
                 Do you wish to sign out?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">No, I will stay</button>
-                <a href="<?=base_url();?>admin_logout" class="btn btn-danger btn-sm">Yes, sign me out</a>
+                <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal"> No, I will stay</button>
+                <a href="<?=base_url();?>admin_logout" class="btn btn-danger btn-sm"> Yes, sign me out</a>
             </div>
         </div>
     </div>
@@ -25,30 +25,29 @@
           <h5 class="modal-title" id="addDoctorModalLabel">Add New Doctor</h5>
           <button type="button" class="btn-close fs-3" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="addDoctorForm">
-
+        <form id="addDoctorForm" method="POST" action="<?=base_url();?>submitNewDoctor">
         <div class="modal-body">
 
             <div class="row">
                 <div class="col-md-3">
-                    <label for="doctorName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="dclastname" class="form-label"> Last Name</label>
+                    <input type="text" class="form-control" id="dclastname" name="dclastname" placeholder="" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="doctorName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="dcfirstname" class="form-label"> First Name</label>
+                    <input type="text" class="form-control" id="dcfirstname" name="dcfirstname" placeholder="" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="doctorName" class="form-label">Middle Name</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="dcmiddlename" class="form-label"> Middle Name</label>
+                    <input type="text" class="form-control" id="dcmiddlename" name="dcmiddlename" placeholder="" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="doctorName" class="form-label">Suffix</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="">
+                    <label for="dcsuffix" class="form-label"> Suffix</label>
+                    <input type="text" class="form-control" id="dcsuffix" name="dcsuffix" placeholder="">
                 </div>
                 <div class="col-md-3 mt-2">
-                    <label for="doctorName" class="form-label">Specialization</label>
-                    <select type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="specialization" class="form-label"> Specialization</label>
+                    <select type="text" class="form-control" id="specialization" name="specialization" placeholder="" required>
                         <option value="" class="text-center">--- select ---</option>
                         <option value="ROD"> ROD</option>
                         <option value="ANESTHESIOLOGISTS, ANESTHESIOLOGY"> Anesthesiology</option>
@@ -65,39 +64,39 @@
                         <option value="OPHTHA, Ophthalmologist, OPTHA"> Ophthalmology</option>
                         <option value="Orthopedic Spine Surgery"> Orthopedic Spine Surgery</option>
                         <option value="PATHOLOGIST"> Pathology</option>
-                    </select>
+                    </select> 
                 </div>
                 <div class="col-md-3 mt-2">
-                    <label for="doctorName" class="form-label">PHIC Accrediation No.</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="phicaccno" class="form-label"> PHIC Accrediation No.</label>
+                    <input type="text" class="form-control" id="phicaccno" name="phicaccno" placeholder="" required>
                 </div>
                 <div class="col-md-2 mt-2">
-                    <label for="doctorName" class="form-label">TIN</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="" class="form-label"> TIN</label>
+                    <input type="text" class="form-control" id="tin" name="tin" placeholder="" required>
                 </div>
                 <div class="col-md-2 mt-2">
-                    <label for="doctorName" class="form-label">PF</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="">
+                    <label for="" class="form-label"> PF</label>
+                    <input type="text" class="form-control" id="pf" name="pf" placeholder="">
                 </div>
                 <div class="col-md-2 mt-2">
-                    <label for="doctorName" class="form-label">Rebates</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="">
+                    <label for="" class="form-label"> Rebates</label>
+                    <input type="text" class="form-control" id="rebates" name="rebates" placeholder="">
                 </div>
                 <div class="col-md-3 mt-2">
-                    <label for="doctorName" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="" class="form-label"> Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="" required>
                 </div>
                 <div class="col-md-3 mt-2">
-                    <label for="doctorName" class="form-label">License No.</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="" class="form-label"> License No.</label>
+                    <input type="text" class="form-control" id="license" name="license" placeholder="" required>
                 </div>
                 <div class="col-md-3 mt-2">
-                    <label for="doctorName" class="form-label">PTR No.</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="" required>
+                    <label for="" class="form-label"> PTR No.</label>
+                    <input type="text" class="form-control" id="ptrno" name="ptrno" placeholder="" required>
                 </div>
                 <div class="col-md-3 mt-2">
-                    <label for="doctorName" class="form-label">S2 No.</label>
-                    <input type="text" class="form-control" id="doctorName" placeholder="">
+                    <label for="" class="form-label"> S2 No.</label>
+                    <input type="text" class="form-control" id="s2no" name="s2no" placeholder="">
                 </div>
             </div>
 
@@ -111,3 +110,7 @@
       </div>
     </div>
 </div>
+
+<script>
+
+</script>

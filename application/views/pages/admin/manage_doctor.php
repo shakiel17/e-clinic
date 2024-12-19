@@ -26,11 +26,11 @@
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th class="text-center">No.</th>
-                    <th class="text-start">Name</th>
-                    <th class="text-center">PHIC No./TIN</th>                    
-                    <th class="text-center">Email Add.</th>
-                    <th class="text-start">Action</th>
+                    <th class="text-center"> No.</th>
+                    <th class="text-start"> Name</th>
+                    <th class="text-center"> PHIC No./TIN</th>                    
+                    <th class="text-center"> Email Add.</th>
+                    <th class="text-start"> Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,6 @@
                     $x=1;
                     foreach($items as $item){
                         $status = $item['status'];
-                        if($status == "Active"){ }
                   ?>
                   <tr>
                       <td class="text-center" vlign="center" style="width:5%;"><?=$x.".";?></td>

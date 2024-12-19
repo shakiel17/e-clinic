@@ -574,7 +574,7 @@ public function manage_doctor(){
     }                  
     if($this->session->admin_login){
 
-    }else{
+    } else {
         redirect(base_url()."admin");
     }
     $data['title'] = "Doctor List";
@@ -626,15 +626,17 @@ public function manage_user(){
     $this->load->view('includes/admin/modal');           
     $this->load->view('includes/footer');
 }
+
 public function update_doctor_account(){
     $code=$this->input->post('code');
     $update=$this->Clinic_model->update_doctor_account();
     if($update){
         echo "<script>alert('Doctor account successfully updated!');window.location='".base_url()."doctor_profile/$code';</script>";
-    }else{
+    } else {
         echo "<script>alert('Unable to update doctor account!');window.location='".base_url()."doctor_profile/$code';</script>";
     }
 }
+
 // end of admin functions
 }
 
