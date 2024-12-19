@@ -197,6 +197,53 @@
                       </div>
                     </div>
 
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Clinic Days</label>
+                      <div class="col-md-8 col-lg-9">
+                        <?php
+                        $d=str_split($item['PF']);
+                        $sun="";$mon="";$tue="";$wed="";$thu="";$fri="";$sat="";
+                        for($i=0;$i < sizeof($d); $i++){
+                          if($d[$i]==0){
+                            $sun="checked";
+                          }
+                          if($d[$i]==1){
+                            $mon="checked";
+                          }
+                          if($d[$i]==2){
+                            $tue="checked";
+                          }
+                          if($d[$i]==3){
+                            $wed="checked";
+                          }
+                          if($d[$i]==4){
+                            $thu="checked";
+                          }
+                          if($d[$i]==5){
+                            $fri="checked";
+                          }
+                          if($d[$i]==6){
+                            $sat="checked";
+                          }
+                        }
+                        ?>
+                        <input type="checkbox" name="days[]" value="0" <?=$sun;?>> Sunday<br>
+                        <input type="checkbox" name="days[]" value="1" <?=$mon;?>> Monday<br>
+                        <input type="checkbox" name="days[]" value="2" <?=$tue;?>> Tuesday<br>
+                        <input type="checkbox" name="days[]" value="3" <?=$wed;?>> Wednesday<br>
+                        <input type="checkbox" name="days[]" value="4" <?=$thu;?>> Thursday<br>
+                        <input type="checkbox" name="days[]" value="5" <?=$fri;?>> Friday<br>
+                        <input type="checkbox" name="days[]" value="6" <?=$sat;?>> Saturday
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Clinic Time</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="times" type="text" class="form-control" id="Email" value="<?=$item['rebates'];?>">
+                      </div>
+                    </div>
+
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
