@@ -8,8 +8,8 @@ date_default_timezone_set('Asia/Manila');
             $page = "index";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
                 show_404();
-            }                  
-            if($this->session->user_login){
+            }            
+            if($this->session->user_login ){
                 redirect(base_url()."main");
             }
             $this->load->view('pages/'.$page);                     
@@ -68,6 +68,7 @@ date_default_timezone_set('Asia/Manila');
         }
     
         public function user_logout(){
+            $this->Clinic_model->logout();
             $this->session->unset_userdata('username');
             $this->session->unset_userdata('apcode');
             $this->session->unset_userdata('fullname');

@@ -13,7 +13,7 @@
                 echo "<script>alert('Unable to save account details! Username already exist!');</script>";
                 return false;
             }else{
-                $checkPAN=$this->db->query("SELECT * FROM docfile WHERE phicacc='$pan' AND `status`='ACTIVE' AND phicacc <> ''");
+                $checkPAN=$this->db->query("SELECT * FROM docfile WHERE phicacc='$pan' AND phicacc <> ''");
                 if($checkPAN->num_rows() > 0){
                     $result=$this->db->query("UPDATE docfile SET username='$username',`password`='$password' WHERE phicacc='$pan'");
                     if($result){
@@ -33,6 +33,7 @@
             $password=$this->input->post('password');
             $check=$this->db->query("SELECT * FROM docfile WHERE username='$username' AND `password`='$password'");
             if($check->num_rows() > 0 ){
+                $this->db->query("UPDATE docfile SET `status`='Active' WHERE username='$username'");
                 return $check->row_array();
             }else{
                 return false;
@@ -360,6 +361,25 @@
             }else{
                 return false;
             }            
+        }
+        public function logout(){
+            $username=$this->session->username;
+            $result=$this->db->query("UPDATE docfile SET `status`='' WHERE username='$username'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function checkLogin(){
+            $username=$this->session->username;
+            $result=$this->db->query("SELECT * FROM docfile WHERE `status`='Active' AND username='$username' AND username <> ''");
+            if($result->num_rows() > 0){
+                return true;
+            }else{
+                return false;
+            }
+
         }
     }
 ?>
