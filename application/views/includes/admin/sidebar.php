@@ -18,12 +18,7 @@
             <a href="<?=base_url();?>manage_doctor">
               <i class="bi bi-circle"></i><span> Doctor Profile</span>
             </a>
-          </li>
-          <li>
-            <a href="<?=base_url();?>manage_user">
-              <i class="bi bi-circle"></i><span> User Account</span>
-            </a>
-          </li>          
+          </li>     
         </ul>
       </li><!-- End Components Nav -->
     </ul>
