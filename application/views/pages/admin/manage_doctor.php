@@ -38,12 +38,17 @@
                     $x=1;
                     foreach($items as $item){
                         $status = $item['status'];
+                        if($item['pic'] != ""){
+                            $image = '<img src="data:image/jpg;charset=utf8;base64,'.base64_encode($item['pic']).'" alt="Profile Image" class="avatar" style="width:80px; height: auto; border-radius:50%;">';
+                        } else{
+                            $image = '<img src="'.base_url('design/assets/img/maleDoc.png').'" alt="Profile Image" class="avatar" style="width:80px; height: auto; border-radius:50%;">';
+                        }
                   ?>
                   <tr>
                       <td class="text-center" vlign="center" style="width:5%;"><?=$x.".";?></td>
                       <td class="text-start" style="width:55%">
                         <div class="row d-flex justify-content-start align-items-center">
-                          <img src="<?=base_url('design/assets/img/docAni.gif');?>" alt="Profile Image" class="avatar" style="width:80px; height: auto; border-radius:50%;">
+                          <?=$image;?>
                           <div class="profile" style="width:70%;"><span class="fw-bold fs-5"><?=$item['name'];?></span><br><span class="fs-6"><?=$item['code'];?> / </span><span class="fs-6"><?=$item['specialization'];?></span></div>
                         </div>
                     </td>

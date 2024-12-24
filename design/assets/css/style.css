@@ -1231,3 +1231,11 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+
+/* Admin Custom modal popups */
+#successModal .modal-content{
+  opacity: 0;
+}
+
+#
