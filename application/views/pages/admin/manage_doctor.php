@@ -50,7 +50,7 @@
                     <td class="text-center" style="width:15%;"><?=$item['phicacc'];?><br><?=$item['tinbir'];?></td>
                     <td class="text-center" style="width:15%;"><?=$item['emailaddress'];?></td>
                     <td class="text-center align-items-center" style="width:10%;">
-                    <a type="button" class="btn btn-warning" href="<?=base_url('doctor_profile/' . $item['code']); ?>" target="_blank">
+                    <a type="button" class="btn btn-warning" href="<?=base_url('doctor_profile/' . $item['code']); ?>">
                         <i class="bi bi-eye-fill"></i>
                     </a>
                     </td>
