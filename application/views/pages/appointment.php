@@ -17,23 +17,27 @@
           <div class="card table-responsive py-5">
             <div class="card-body">                      
               <!-- Table with stripped rows -->
-              <table class="table table-bordered">
+              <table class="table table-bordered" style="table-layout:fixed;">
                 <thead>
                   <tr>
-                    <td colspan="3" align="right" style="border-right:0;">
+                    <td colspan="7" align="left">
+<div style="float:left; margin-right:20px;">
                       <?=form_open(base_url('search_appointment'));?>
                       <input type="hidden" name="month" value="<?=date('m',strtotime('-1 month',strtotime($datenow)));?>">
                       <input type="hidden" name="year" value="<?=date('Y',strtotime('-1 month',strtotime($datenow)));?>">
                       <button type="submit" class="btn btn-primary btn-sm"><< Previous</button>
                       <?=form_close();?>
-                    </td>
-                    <td align="center" style="border-left:0; border-right:0;"><b><?=date('F Y',strtotime($datenow));?></b></td>
-                    <td colspan="3" align="left" style="border-left:0;">
+</div>
+<div style="float:left;">
+<b><?=date('F Y',strtotime($datenow));?></b>
+</div>
+<div style="float:left; margin-left:20px;">
                     <?=form_open(base_url('search_appointment'));?>
                       <input type="hidden" name="month" value="<?=date('m',strtotime('1 month',strtotime($datenow)));?>">
                       <input type="hidden" name="year" value="<?=date('Y',strtotime('1 month',strtotime($datenow)));?>">
                       <button type="submit" class="btn btn-primary btn-sm">Next >></button>
                       <?=form_close();?>
+</div>
                     </td>
                   </tr>
                   <tr>
