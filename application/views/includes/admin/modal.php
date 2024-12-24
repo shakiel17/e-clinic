@@ -18,8 +18,7 @@
 
 <!-- New doctor -->
 <div class="modal fade" id="addDoctorModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog
-     modal-xl">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addDoctorModalLabel">Add New Doctor</h5>
@@ -111,6 +110,21 @@
     </div>
 </div>
 
-<script>
 
-</script>
+<!-- modal alerts -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="content">
+                <p>Are you sure, do you want to update this doctor's information?</p>
+            </div>
+            </div>
+            <div class="conf-btn">
+                <button class="btn btn-secondary"> No</button>
+                <button class="btn btn-success"> Yes</button>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

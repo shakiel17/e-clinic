@@ -281,8 +281,8 @@
         
         //admin dashboard query 
         public function getAllDoctorsCount(){ 
-            $result = $this->db->query("SELECT COUNT(code) AS drCount FROM docfile WHERE `status` = 'Active' AND (username IS NOT NULL AND username != '') AND (password IS NOT NULL AND password != '')");
-            return $result->row_array();
+            $result = $this->db->query("SELECT * FROM docfile WHERE `status` = 'Active' AND (username IS NOT NULL AND username != '') AND (password IS NOT NULL AND password != '')");
+            return $result->result_array();
         }
 
         public function getAllPatientCount(){ 
