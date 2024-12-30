@@ -56,8 +56,10 @@ $route['admin_authentication'] = 'pages/admin_authentication';
 $route['admin_logout'] = 'pages/admin_logout';
 $route['manage_doctor'] = 'pages/manage_doctor';
 $route['manage_user'] = 'pages/manage_user';
+$route['submit_new_doctor'] = 'pages/submit_new_doctor';
 $route['doctor_profile/(:any)'] = 'pages/doctor_profile/$1';
 $route['update_doctor_account'] = 'pages/update_doctor_account';
+$route['updateDoctorProfile'] = 'pages/updateDoctorProfile';
 
 //start of user route
 $route['remove_diagnostic/(:any)/(:any)'] = 'pages/remove_diagnostic/$1/$2';
