@@ -54,7 +54,7 @@
                 <?php
                     $w=0;                    
                     for($i=1;$i<=date('t',strtotime($datenow));$i++){
-                      $date=date('Y-m',strtotime($datenow))."-".$i;
+                      $date=date('Y-m',strtotime($datenow))."-".$i;                      
                       $apcode=$this->session->apcode;
                       $count=0;
                       $check=$this->Clinic_model->db->query("SELECT * FROM appointment WHERE apcode='$apcode' AND appointment_date='$date' AND `status`='pending'");
@@ -64,11 +64,13 @@
                           $count++;
                         }
                       }
-                      if($date==date('Y-m-d')){
-                        $color="background-color:yellow;";
+                      if(strtotime($date) == strtotime(date('Y-m-d'))){
+                        $color="background-color:yellow;";                        
+                      }else if(strtotime($date) < strtotime(date('Y-m-d'))){
+                          $color="background-color:gray;";
                       }else{
                         $color="";
-                      }
+                      }                      
                       if($count > 0){
                         $remarks="<a href='".base_url()."view_appointment/$date'>You have $count pending appointment.</a>";
                       }else{
@@ -87,15 +89,20 @@
                            
                        }
                     }else{ 
-                      if(strtotime($date) < strtotime(date('Y-m-d'))){
-                        $color="";
-                      }else if(date('w',strtotime($date)) == 6 || date('w',strtotime($date))==0){                        
-                        $color="";                   
-                      }elseif($date==date('Y-m-d')){
-                        $color="background-color:yellow;";
-                      }else{  
-                        $color="";
-                      }                   
+                      // if($date==date('Y-m-d')){
+                      //   $color="background-color:yellow; color:yellow;";
+                      // }else{
+                      //   $color="";
+                      // }
+                      // if(strtotime($date) < strtotime(date('Y-m-d'))){
+                      //   $color="";
+                      // }else if(date('w',strtotime($date)) == 6 || date('w',strtotime($date))==0){                        
+                      //   $color="";                   
+                      // }elseif($date==date('Y-m-d')){
+                      //   $color="background-color:yellow;";
+                      // }else{  
+                      //   $color="";
+                      // }                   
                         echo "<td style='width:14.285%; height: 100px; $color' align='center'><b style='float:right;'>$i</b><br>$remarks</td>"; 
                         $w++;
                     }
