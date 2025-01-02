@@ -23,7 +23,7 @@
               <img src="data:image/jpg;charset=utf8;base64,<?=base64_encode($fth['pic']);?>" alt="Profile">
           <?php } ?>
           <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#UploadPicture"><i class="bi bi-arrow-bar-up"></i> Upload Pic</a>
-          <h2><?="DR. ". strtoupper($fth['firstname'] . " " . strtoupper(substr($fth['middlename'], 0, 1)) . ". " . $fth['lastname']); ?></h2>
+          <h2><?="DR. ". strtoupper($fth['firstname'] . " " . strtoupper(substr($fth['middlename'], 0, 1)) . ". " . $fth['lastname']). " " . $fth['ext'] ; ?></h2>
           <h3><?=$fth['specialization'];?></h3>
           <div class="social-links mt-2">
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -97,10 +97,11 @@
             </div>
 
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-              <!-- <form method="POST" action="<?=base_url();?>updateDoctorProfile"> -->
+            <form method="POST" action="<?=base_url();?>updateDoctorProfile" id="updateDoctorForm">
                 <div class="row mb-3">
                   <label for="lastname" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
                   <div class="col-md-8 col-lg-9">
+                    <input name="code" type="hidden" class="form-control" id="code" value="<?=$fth['code']?>">
                     <input name="lastname" type="text" class="form-control" id="lastname" value="<?=$fth['lastname']?>">
                   </div>
                 </div>
@@ -130,42 +131,53 @@
                 <div class="row mb-3">
                   <label for="Job" class="col-md-4 col-lg-3 col-form-label">Specialization</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="job" type="text" class="form-control" id="Job" value="<?=$fth['specialization']?>">
+                  <select name="specialization" class="form-select">
+                      <?php
+                          foreach ($speclist as $spec) {
+                              // Mark the option as selected if it matches the current specialization
+                              $isSelected = ($fth['specialization'] === $spec['specialization']) ? "selected" : "";
+                              echo "<option value='" . htmlspecialchars($spec['specialization'], ENT_QUOTES, 'UTF-8') . "' $isSelected>" 
+                                  . htmlspecialchars($spec['specialization'], ENT_QUOTES, 'UTF-8') . 
+                                  "</option>";
+                          }
+                      ?>
+                  </select>
+
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="Country" class="col-md-4 col-lg-3 col-form-label">PHIC Accrediatation</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="country" type="text" class="form-control" id="Country" value="<?=$fth['phicacc'];?>">
+                    <input name="phicacc" type="text" class="form-control" id="phicacc" value="<?=$fth['phicacc'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="Address" class="col-md-4 col-lg-3 col-form-label">TIN</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="address" type="text" class="form-control" id="Address" value="<?=$fth['tinbir'];?>">
+                    <input name="tinbir" type="text" class="form-control" id="tinbir" value="<?=$fth['tinbir'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="Phone" class="col-md-4 col-lg-3 col-form-label">License No.</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="phone" type="text" class="form-control" id="Phone" value="<?=$fth['licenseno'];?>">
+                    <input name="licenseno" type="text" class="form-control" id="licenseno" value="<?=$fth['licenseno'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="Phone" class="col-md-4 col-lg-3 col-form-label">PTR No.</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="phone" type="text" class="form-control" id="Phone" value="<?=$fth['ptrno'];?>">
+                    <input name="ptrno" type="text" class="form-control" id="ptrno" value="<?=$fth['ptrno'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="Phone" class="col-md-4 col-lg-3 col-form-label">S2 No.</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="phone" type="text" class="form-control" id="Phone" value="<?=$fth['s2no'];?>">
+                    <input name="s2no" type="text" class="form-control" id="s2no" value="<?=$fth['s2no'];?>">
                   </div>
                 </div>
 
@@ -177,9 +189,9 @@
                 </div>
 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successModal"><i class="bi bi-cloud-arrow-up-fill"></i> Update</button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationUpdateModal"><i class="bi bi-cloud-arrow-up-fill"></i> Update</button>
                 </div>
-              <!-- </form> -->
+              </form>
 
             </div>
 
@@ -228,3 +240,12 @@
 <?php else: ?>
     <p> Doctor profile not found.</p>
 <?php endif; ?>
+
+<script>
+    function submitUpdateDoctor() {
+    const modal = document.getElementById('confirmationUpdateModal');
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+    document.getElementById('updateDoctorForm').submit();
+  }
+</script>

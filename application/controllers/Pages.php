@@ -580,6 +580,8 @@ public function manage_doctor(){
     }
     $data['title'] = "Doctor List";
     $data['items'] = $this->Clinic_model->getAllDoctor();
+    $data['gencode'] = $this->Clinic_model->getGenCodeForDoctor();
+    $data['listspec'] = $this->Clinic_model->listSpecialization();
     $this->load->view('includes/header');
     $this->load->view('includes/admin/navbar');
     $this->load->view('includes/admin/sidebar');
@@ -600,6 +602,7 @@ public function doctor_profile($code){
     }
     $data['title'] = "Doctor Profile";
     $data['fth'] = $this->Clinic_model->getAllDoctorProfile($code)[0];
+    $data['speclist'] = $this->Clinic_model->listSpecialization();
     $this->load->view('includes/header');
     $this->load->view('includes/admin/navbar');
     $this->load->view('includes/admin/sidebar');
@@ -638,6 +641,45 @@ public function update_doctor_account(){
     }
 }
 
+public function submit_new_doctor() {
+    $page = "manage_doctor";
+    $data['title'] = "Doctor List";
+    $data['items'] = $this->Clinic_model->getAllDoctor();
+    $data['gencode'] = $this->Clinic_model->getGenCodeForDoctor();
+    $gencode = $this->input->post('gencode');
+    $result = $this->Clinic_model->saveNewDoctor($this->input->post());
+   if ($result === true) {
+        echo "<script> document.addEventListener('DOMContentLoaded', function () { popupAlertSaveSuccess('$gencode'); }); </script>";
+    } else {
+        echo "<script> document.addEventListener('DOMContentLoaded', function () { popupAlertSaveFailed(); }); </script>";
+    }
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/' . $page, $data);
+    $this->load->view('includes/admin/modal');
+    $this->load->view('includes/footer');
+}
+
+public function updateDoctorProfile(){
+    $page = "doctor_profile";
+    $data['title'] = "Doctor Profile";
+    $code = $this->input->post('code');
+    $data['title'] = "Doctor Profile";
+    $data['fth'] = $this->Clinic_model->getAllDoctorProfile($code)[0];
+    $addnew = $this->Clinic_model->update_doctor_profile($this->input->post());
+    if ($addnew) {
+        echo "<script> document.addEventListener('DOMContentLoaded', function () { popupAlertUpdateSuccess('$code'); });</script>";
+    } else {
+        echo "<script> document.addEventListener('DOMContentLoaded', function () { popupAlertUpdateFailed('$code'); }); </script>";
+    }
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/'.$page, $data);          
+    $this->load->view('includes/admin/modal');           
+    $this->load->view('includes/footer');
+}
 // end of admin functions
 }
 

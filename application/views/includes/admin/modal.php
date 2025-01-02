@@ -24,45 +24,36 @@
           <h5 class="modal-title" id="addDoctorModalLabel">Add New Doctor</h5>
           <button type="button" class="btn-close fs-3" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="addDoctorForm" method="POST" action="<?=base_url();?>submitNewDoctor">
+        <form id="addDoctorForm" method="POST" action="<?= base_url(); ?>submit_new_doctor">
         <div class="modal-body">
-
+            <input type="hidden" class="form-control" name="gencode" value="<?=$gencode;?>">
             <div class="row">
                 <div class="col-md-3">
                     <label for="dclastname" class="form-label"> Last Name</label>
-                    <input type="text" class="form-control" id="dclastname" name="dclastname" placeholder="" required>
+                    <input type="text" class="form-control" id="dclastname" name="dclastname" placeholder="" oninput="this.value = this.value.toUpperCase();" required>
                 </div>
                 <div class="col-md-3">
                     <label for="dcfirstname" class="form-label"> First Name</label>
-                    <input type="text" class="form-control" id="dcfirstname" name="dcfirstname" placeholder="" required>
+                    <input type="text" class="form-control" id="dcfirstname" name="dcfirstname" placeholder="" oninput="this.value = this.value.toUpperCase();" required>
                 </div>
                 <div class="col-md-3">
                     <label for="dcmiddlename" class="form-label"> Middle Name</label>
-                    <input type="text" class="form-control" id="dcmiddlename" name="dcmiddlename" placeholder="" required>
+                    <input type="text" class="form-control" id="dcmiddlename" name="dcmiddlename" placeholder="" oninput="this.value = this.value.toUpperCase();" required>
                 </div>
                 <div class="col-md-3">
                     <label for="dcsuffix" class="form-label"> Suffix</label>
-                    <input type="text" class="form-control" id="dcsuffix" name="dcsuffix" placeholder="">
+                    <input type="text" class="form-control" id="dcsuffix" name="dcsuffix" placeholder="" oninput="this.value = this.value.toUpperCase();">
                 </div>
-                <div class="col-md-3 mt-2">
+                <div class="col-md-5 mt-2">
                     <label for="specialization" class="form-label"> Specialization</label>
-                    <select type="text" class="form-control" id="specialization" name="specialization" placeholder="" required>
-                        <option value="" class="text-center">--- select ---</option>
-                        <option value="ROD"> ROD</option>
-                        <option value="ANESTHESIOLOGISTS, ANESTHESIOLOGY"> Anesthesiology</option>
-                        <option value="CARDIOLOGY"> Cardiology</option>
-                        <option value="DENTAL"> Dental</option>
-                        <option value="EENT"> EENT</option>
-                        <option value="ENDOCRINOLOGIST, IM_ENDO"> Endocrinology</option>
-                        <option value="FAMILY MED, FAMILY MEDICINE"> Family Medicine</option>
-                        <option value="GENERAL PRACTICIONER"> General Practitioner</option>
-                        <option value="IM, INTERNAL MEDICINE, INTERNAL MEDICINE (PT)"> Internal Medicine</option>
-                        <option value="NEPHROLOGY"> Nephrology</option>
-                        <option value="NEURO, NEURO (ADULT), NEUROLOGIST"> Neurology</option>
-                        <option value="OB-GYNE	Obstetrics and Gynecology"> (OB-GYNE)</option>
-                        <option value="OPHTHA, Ophthalmologist, OPTHA"> Ophthalmology</option>
-                        <option value="Orthopedic Spine Surgery"> Orthopedic Spine Surgery</option>
-                        <option value="PATHOLOGIST"> Pathology</option>
+                    <select type="text" class="selectsearch" id="specialization" name="specialization" data-placeholder="--- select specialization ---" required>
+                        <?php
+                            foreach($listspec as $spec){
+                                echo "<option value='" . htmlspecialchars($spec['specialization'], ENT_QUOTES, 'UTF-8') . "'>" 
+                                . htmlspecialchars($spec['specialization'], ENT_QUOTES, 'UTF-8') . 
+                                "</option>";
+                            }
+                        ?>
                     </select> 
                 </div>
                 <div class="col-md-3 mt-2">
@@ -76,10 +67,6 @@
                 <div class="col-md-2 mt-2">
                     <label for="" class="form-label"> PF</label>
                     <input type="text" class="form-control" id="pf" name="pf" placeholder="">
-                </div>
-                <div class="col-md-2 mt-2">
-                    <label for="" class="form-label"> Rebates</label>
-                    <input type="text" class="form-control" id="rebates" name="rebates" placeholder="">
                 </div>
                 <div class="col-md-3 mt-2">
                     <label for="" class="form-label"> Email</label>
@@ -110,21 +97,65 @@
     </div>
 </div>
 
-
 <!-- modal alerts -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade" id="confirmationUpdateModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
             <div class="content">
+                <i class="bi bi-check2-square"></i><span class="cont-hdr"> Confirmation</span>
                 <p>Are you sure, do you want to update this doctor's information?</p>
             </div>
             </div>
             <div class="conf-btn">
-                <button class="btn btn-secondary"> No</button>
-                <button class="btn btn-success"> Yes</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal"> No</button>
+                <button class="btn btn-success" onclick="submitUpdateDoctor()"> Yes</button>
             </div>
         </div>
       </div>
     </div>
 </div>
+
+<!-- pop up alerts / toast notifications -->
+    <!-- success -->
+    <div class="modal fade" id="popupAlertSuccess" tabindex="-1" 
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modalbox success center animate">r
+                <div class="icon">
+			    	<span class="bi bi-check-lg"></span>
+			    </div>
+			    <h1>Success!</h1>
+			    <p id="alertMessage"></p>
+			    <button type="button" class="btn confSBtn" style="text-align:center">Ok</button>
+            </div>
+        </div>
+    </div>
+    <!-- failed -->
+    <div class="modal fade" id="popupAlertFailed" tabindex="-1" 
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modalbox error center animate">
+                <div class="icon">
+			    	<span class="bi bi-x-lg"></span>
+			    </div>
+                <h1>Database Error</h1>
+                <p>We encountered an issue while saving the information. Please check your input or contact the system administrator for assistance.</p>
+			    <button type="button" class="btn confEBtn" style="text-align:center">OK</button>
+            </div>
+        </div>
+    </div>
+      <!-- warning -->
+    <div class="modal fade" id="popupAlertWarning" tabindex="-1" 
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modalbox warning center animate">
+                <div class="icon">
+			    	<span class="bi bi-exclamation-lg"></span>
+			    </div>
+			    <h1>Warning!</h1>
+			    <p id="alertWMessage">Oops! Something went wrong,</p>
+			    <button type="button" class="btn confWBtn" style="text-align:center">OK</button>
+            </div>
+        </div>
+    </div>

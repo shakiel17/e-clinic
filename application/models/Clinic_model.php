@@ -381,5 +381,72 @@
             }
 
         }
+
+        // new code for new Doctor
+        public function getGenCodeForDoctor(){
+            $query = $this->db->query("SELECT MAX(code) as max_code FROM docfile");
+            $row = $query->row();
+            $newCode = isset($row->max_code) ? (int)$row->max_code + 1 : 1;
+            return $newCode;
+        }
+
+        public function saveNewDoctor() {
+            $docname = $this->input->post('gencode');
+            $dclastname = $this->input->post('dclastname');
+            $dcfirstname = $this->input->post('dcfirstname');
+            $dcmiddlename = $this->input->post('dcmiddlename');
+            $dcsuffix = $this->input->post('dcsuffix');
+            $specialization = $this->input->post('specialization');
+            $phicaccno = $this->input->post('phicaccno');
+            $tin = $this->input->post('tin');
+            $pf = $this->input->post('pf');
+            $email = $this->input->post('email');
+            $license = $this->input->post('license');
+            $ptrno = $this->input->post('ptrno');
+            $s2no = $this->input->post('s2no');
+            $fname = $dcfirstname . " " . substr($dcmiddlename, 0, 1) . ". " . $dclastname . " " . $dcsuffix;
+            $check = $this->db->query("SELECT * FROM docfile WHERE firstname = ? AND lastname = ?", [$dcfirstname, $dclastname]);
+            if ($check->num_rows() > 0) {
+                return "exist";
+            } else {
+                $query = $this->db->query(
+                    "INSERT INTO docfile 
+                    (`code`, `name`, `specialization`, `tod`, `phicacc`, `tinbir`, `PF`, `phicacc1`, `emailaddress`, `licenseno`, `ptrno`, `s2no`, `lastname`, `firstname`, `middlename`, `ext`)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [$docname, $fname, $specialization, $specialization, $phicaccno, $tin, $pf, $phicaccno, $email, $license, $ptrno, $s2no, $dclastname, $dcfirstname, $dcmiddlename, $dcsuffix]
+                );
+        
+                return $query ? true : false;
+            }
+        }        
+
+        public function update_doctor_profile(){
+            $code = $this->input->post('code');
+            $lastname = $this->input->post('lastname');
+            $firstname = $this->input->post('firstname');
+            $middlename = $this->input->post('middlename');
+            $suffix = $this->input->post('suffix');
+            $specialization = $this->input->post('specialization');
+            $phicacc = $this->input->post('phicacc');
+            $tinbir = $this->input->post('tinbir');
+            $licenseno = $this->input->post('licenseno');
+            $ptrno = $this->input->post('ptrno');
+            $s2no = $this->input->post('s2no');
+            $email = $this->input->post('email');
+            $fname = $firstname. " " . substr($middlename, 0, 1). ". " . $lastname. " " . $suffix;  
+
+            $query = $this->db->query("UPDATE docfile SET name='$fname', specialization = '$specialization', tod='$specialization', phicacc='$phicacc', tinbir='$tinbir', phicacc1='$phicacc', licenseno='$licenseno', ptrno='$ptrno', s2no='$s2no', lastname='$lastname', firstname='$firstname', middlename='$middlename', ext='$suffix' WHERE code ='$code'");
+            if($query){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function listSpecialization(){
+            $query = $this->db->query("SELECT * FROM docfile WHERE specialization !='' GROUP BY specialization ORDER BY specialization ASC");
+            return $query->result_array();            
+        }
+
     }
 ?>

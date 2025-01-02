@@ -226,7 +226,7 @@
             <div class="card-body pb-0">
               <h5 class="card-title">Active Doctors <span>| Today</span></h5>
 
-              <table class="table table-borderless">
+              <table class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col"> Doctor's Name</th>
@@ -237,11 +237,17 @@
                 <tbody>
                 <?php
                   foreach ($doctors as $doctor){
+                    $status = $doctor['status'];
+                    if($status == "Active"){
+                        $stats = "<span class='text-success'> Active</span>";
+                    } else {
+                        $stats = "";
+                    }
                   ?>
                   <tr>
                     <th scope="row"><img src="data:image/jpg;charset=utf8;base64,<?=base64_encode($doctor['pic']);?>" alt=""> Dr. <?=$doctor['name'];?></th>
                     <td><?=$doctor['specialization'];?></td>
-                    <td></td>
+                    <td><?=$stats;?></td>
                   </tr>
                   <?php 
                     }

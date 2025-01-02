@@ -22,9 +22,15 @@
   <script src="<?=base_url();?>design/assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="<?=base_url();?>design/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="<?=base_url();?>design/assets/vendor/php-email-form/validate.js"></script>
+  
 
   <!-- Template Main JS File -->
   <script src="<?=base_url();?>design/assets/js/main.js"></script>
+  <script src="<?=base_url();?>design/assets/js/jquery-3.6.0.min.js"></script>
+  <script src="<?=base_url();?>design/assets/js/select2.4.1/jquery.slim.min.js"></script>
+  <script src="<?=base_url();?>design/assets/js/select2.4.1/select2.min.js"></script>
+  <script src="<?=base_url();?>design/assets/js/popup.js"></script>
+
   <script>
     function viewSetting(){
       document.getElementById('settings').style = 'display:block';
