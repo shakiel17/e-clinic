@@ -16,13 +16,13 @@
     <div class="col-xl-4">
 
       <div class="card">
-        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center text-center">
           <?php if($fth['pic']== ""){ ?>
               <img src="<?=base_url('design/assets/img/maleDoc.png');?>" alt="Profile" class="rounded-circle">
           <?php } else { ?>
-              <img src="data:image/jpg;charset=utf8;base64,<?=base64_encode($fth['pic']);?>" alt="Profile">
+              <img src="data:image/jpg;charset=utf8;base64,<?=base64_encode($fth['pic']);?>" alt="Profile" class="rounded-circle">
           <?php } ?>
-          <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#UploadPicture"><i class="bi bi-arrow-bar-up"></i> Upload Pic</a>
+          <a href="#" class="btn btn-success btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#UploadPicture"><i class="bi bi-arrow-bar-up"></i> Upload Pic</a>
           <h2><?="DR. ". strtoupper($fth['firstname'] . " " . strtoupper(substr($fth['middlename'], 0, 1)) . ". " . $fth['lastname']). " " . $fth['ext'] ; ?></h2>
           <h3><?=$fth['specialization'];?></h3>
           <div class="social-links mt-2">
@@ -48,11 +48,14 @@
             <li class="nav-item">
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
             </li>
-
+            <?php
+            if (empty($fth['username']) && empty($fth['password'])) {
+              echo "";
+            } else { ?>
             <li class="nav-item">
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password"> Change Password</button>
             </li>
-
+            <?php } ?>
           </ul>
           <div class="tab-content pt-2">
 
@@ -134,7 +137,6 @@
                   <select name="specialization" class="form-select">
                       <?php
                           foreach ($speclist as $spec) {
-                              // Mark the option as selected if it matches the current specialization
                               $isSelected = ($fth['specialization'] === $spec['specialization']) ? "selected" : "";
                               echo "<option value='" . htmlspecialchars($spec['specialization'], ENT_QUOTES, 'UTF-8') . "' $isSelected>" 
                                   . htmlspecialchars($spec['specialization'], ENT_QUOTES, 'UTF-8') . 
@@ -147,37 +149,37 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Country" class="col-md-4 col-lg-3 col-form-label">PHIC Accrediatation</label>
+                  <label for="" class="col-md-4 col-lg-3 col-form-label">PHIC Accrediatation</label>
                   <div class="col-md-8 col-lg-9">
                     <input name="phicacc" type="text" class="form-control" id="phicacc" value="<?=$fth['phicacc'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Address" class="col-md-4 col-lg-3 col-form-label">TIN</label>
+                  <label for="" class="col-md-4 col-lg-3 col-form-label">TIN</label>
                   <div class="col-md-8 col-lg-9">
                     <input name="tinbir" type="text" class="form-control" id="tinbir" value="<?=$fth['tinbir'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">License No.</label>
+                  <label for="" class="col-md-4 col-lg-3 col-form-label">License No.</label>
                   <div class="col-md-8 col-lg-9">
                     <input name="licenseno" type="text" class="form-control" id="licenseno" value="<?=$fth['licenseno'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">PTR No.</label>
+                  <label for="" class="col-md-4 col-lg-3 col-form-label">PTR No.</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="ptrno" type="text" class="form-control" id="ptrno" value="<?=$fth['ptrno'];?>">
+                    <input name="ptrno" type="text" class="form-control" id="ptrnumber" value="<?=$fth['ptrno'];?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">S2 No.</label>
+                  <label for="" class="col-md-4 col-lg-3 col-form-label">S2 No.</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="s2no" type="text" class="form-control" id="s2no" value="<?=$fth['s2no'];?>">
+                    <input name="s2no" type="text" class="form-control" id="s2number" value="<?=$fth['s2no'];?>">
                   </div>
                 </div>
 
@@ -194,40 +196,64 @@
               </form>
 
             </div>
+            <style>
+              .error-box{
+                box-shadow: rgba(252, 147, 147, 0.2) 0px 0px 0px 1px inset, rgba(255, 0, 0, 0.9) 0px 0px 0px 1px;
+              }
+              .error-box:focus{
+                box-shadow: rgba(182, 233, 255, 0.12) 0px 2px 4px 0px, rgba(255, 37, 37, 0.32) 0px 2px 16px 0px;
+                border: 1px solid rgb(255, 0, 0);
+              }
+              .success-box{
+                box-shadow: rgba(255, 188, 188, 0.2) 0px 0px 0px 1px inset, rgba(9, 255, 0, 0.9) 0px 0px 0px 1px;
+              }
+              .success-box:focus{
+                box-shadow: rgba(182, 233, 255, 0.12) 0px 2px 4px 0px, rgba(55, 255, 37, 0.32) 0px 2px 16px 0px;
+                border: 1px solid rgb(0, 214, 18);
+              }
+              .error-text{
+                color: red;
+              }
+              .success-text{
+                color: green;
+              }
+            </style>
 
             <div class="tab-pane fade pt-3" id="profile-change-password">
               <!-- Change Password Form -->
-              <form action="<?=base_url('update_doctor_account');?>" method="POST">                
-                <input type="hidden" name="code" value="<?=$fth['code'];?>">
-
+              <form action="<?=base_url('updateDoctorsPassword');?>" method="POST">                
+                <input type="hidden" name="drcode" value="<?=$fth['code'];?>" id="dcAcctcode">
+                <input type="hidden" name="curpassword" value="<?=$fth['password'];?>" id="curpassword">
                 <div class="row mb-3">
                   <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="password" type="text" class="form-control" id="currentPassword" value="">
+                    <input name="currentpassword" type="password" class="form-control" id="currentPassword">
+                    <span id="alertMsgCurPass"></span>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="newpassword" type="password" class="form-control" id="newPassword">
+                    <input name="newpassword" type="password" class="form-control" id="newPassword" disabled>
+                    <span id="alertMsgNewPass"></span>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                    <input name="renewpassword" type="password" class="form-control" id="renewPassword" disabled>
+                    <span id="alertMsgRenewPass"></span>
                   </div>
                 </div>
 
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary"> Update Account</button>
+                  <button type="button" class="btn btn-primary" id="submitUpdate"> Update Account</button>
                 </div>
-              <!-- </form>End Change Password Form -->
-
+              </form>              
+               <!---- End Change Password Form -->
             </div>
-
           </div><!-- End Bordered Tabs -->
 
         </div>
@@ -242,7 +268,7 @@
 <?php endif; ?>
 
 <script>
-    function submitUpdateDoctor() {
+  function submitUpdateDoctor() {
     const modal = document.getElementById('confirmationUpdateModal');
     const modalInstance = bootstrap.Modal.getInstance(modal);
     modalInstance.hide();

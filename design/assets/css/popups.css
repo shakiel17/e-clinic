@@ -445,3 +445,228 @@
     transform: translateY(-50%); /* Vertically center the button */
     color: #007bff; /* Customize the color if needed */
 }
+
+/* modal for upload image */
+
+#UploadPicture .modal {
+  width: 90%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#UploadPicture .modal-header {
+    border-bottom: none; /* Removes the bottom line */
+}
+
+#UploadPicture .modal-footer {
+    border-top: none; /* Removes the top line */
+}
+
+
+#UploadPicture .modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+#UploadPicture .logo-circle {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #e9e5ff;
+  fill: #1cc972;
+}
+
+#UploadPicture .btn-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#UploadPicture .btn-close:hover,
+#UploadPicture .btn-close:focus {
+  background-color: #e9e5ff;
+}
+
+#UploadPicture .modal-body {
+  padding: 1rem 1.5rem;
+}
+
+#UploadPicture .modal-title {
+  font-weight: 700;
+}
+
+#UploadPicture .modal-description {
+  color: #6a6b76;
+}
+
+#UploadPicture .upload-area {
+  margin-top: 1.25rem;
+  background-color: transparent;
+  padding: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px dashed #6a6b76;
+}
+
+#UploadPicture .upload-area:hover,
+#UploadPicture .upload-area:focus {
+  cursor: pointer;
+  border: 1px solid #6a6b76;
+}
+
+#UploadPicture .upload-area:focus {
+    outline: 2px dashed #1cc972;
+    outline-offset: 2px;
+}
+
+#UploadPicture .upload-area:hover .upload-area-icon,
+#UploadPicture .upload-area:focus .upload-area-icon {
+  transform: scale(1.3);
+  transition-duration: 0.3s;
+}
+
+#UploadPicture .upload-area-icon {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  fill: #1cc972;
+}
+
+#UploadPicture .upload-area,
+#UploadPicture .upload-area-icon {
+    transition: all 0.3s ease-in-out;
+}
+
+#UploadPicture .upload-area-title {
+  margin-top: 1rem;
+  display: block;
+  font-weight: 700;
+  color: #0d0f21;
+}
+
+#UploadPicture .upload-area-description {
+  display: block;
+  color: #6a6b76;
+}
+
+#UploadPicture .upload-area-description strong {
+  color: #1cc972;
+  font-weight: 700;
+}
+
+#UploadPicture .modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#UploadPicture .modal-footer [class*="btn-"] {
+  margin-left: 0.75rem;
+}
+
+#UploadPicture .btn-secondary,
+#UploadPicture .btn-primary {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border: 2px solid #e5e5e5;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#UploadPicture .btn-primary {
+  color: #fff;
+  background-color: #1cc972;
+  border-color: #1cc972;
+  cursor: pointer;
+}
+
+#UploadPicture .file-preview {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.25rem;
+    background-color: #f9f9f9;
+    max-height: 300px;
+    overflow: auto;
+}
+
+#UploadPicture .file-preview.hidden {
+    display: none;
+}
+
+#UploadPicture #crop-canvas {
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid #e5e5e5;
+    background-color: #f9f9f9;
+}
+
+#UploadPicture .crop-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+#UploadPicture #crop-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the area */
+}
+
+#UploadPicture #save-crop {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border: 2px solid #e5e5e5;
+    border-radius: 0.25rem;
+    background-color: #1cc972;
+    color: white;
+    cursor: pointer;
+}
+
+#UploadPicture .hidden{
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #UploadPicture .upload-area {
+        padding: 2rem;
+    }
+}
+
+#UploadPicture .upload-area {
+    border: 1px dashed #6a6b76;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+#UploadPicture .upload-area.drag-over {
+    border-color: #1cc972;
+    background-color: #f0fff4;
+}

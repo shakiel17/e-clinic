@@ -60,6 +60,10 @@ $route['submit_new_doctor'] = 'pages/submit_new_doctor';
 $route['doctor_profile/(:any)'] = 'pages/doctor_profile/$1';
 $route['update_doctor_account'] = 'pages/update_doctor_account';
 $route['updateDoctorProfile'] = 'pages/updateDoctorProfile';
+$route['uploadProfilePicture/(:any)'] = 'pages/uploadProfilePicture/$1';
+$route['updateDoctorsPassword'] = 'pages/updateDoctorsPassword';
+$route['specialization'] = 'pages/specialization';
+
 
 //start of user route
 $route['remove_diagnostic/(:any)/(:any)'] = 'pages/remove_diagnostic/$1/$2';

@@ -611,6 +611,45 @@ public function doctor_profile($code){
     $this->load->view('includes/footer');
 }
 
+public function uploadProfilePicture($code) {
+    try {
+        if (!empty($_FILES['drpic']['name'])) {
+            $fileTmp = $_FILES['drpic']['tmp_name'];
+            $fileSize = $_FILES['drpic']['size'];
+            $fileType = mime_content_type($fileTmp);
+            $allowedTypes = ['image/png', 'image/jpeg'];
+            if (!in_array($fileType, $allowedTypes)) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Invalid file type. Only PNG and JPEG are allowed.']);
+                return;
+            }
+            if ($fileSize > 25 * 1024 * 1024) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'File size exceeds the 25MB limit.']);
+                return;
+            }
+            $fileContent = file_get_contents($fileTmp);
+
+            $this->load->model('Clinic_model');
+            $result = $this->Clinic_model->updateProfilePicture($code, $fileContent);
+
+            if ($result) {
+                http_response_code(200);
+                echo json_encode(['status' => 'success', 'message' => 'Profile picture updated successfully.']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to save profile picture.']);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'No file uploaded.']);
+        }
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
+    }
+}
+
 public function manage_user(){
     $page = "doctor_account";
     if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
@@ -680,6 +719,44 @@ public function updateDoctorProfile(){
     $this->load->view('includes/admin/modal');           
     $this->load->view('includes/footer');
 }
+
+public function updateDoctorsPassword() {
+    try {
+        $drcode = $this->input->post('drcode');
+        $newpassword = $this->input->post('newPassword');
+        if (!$drcode || !$newpassword) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid input data.']);
+            return;
+        }
+
+        $this->load->model('Clinic_model');
+        $result = $this->Clinic_model->updateDoctorsPassword($drcode, $newpassword);
+
+        if ($result) {
+            http_response_code(200);
+            echo json_encode(['status' => 'success', 'message' => 'Password updated successfully.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update password.']);
+        }
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
+    }
+}
+
+public function specialization() {
+    $page = "specialization";
+    $data['title'] = "Specialization";
+    $this->load->view('includes/header');
+    $this->load->view('includes/admin/navbar');
+    $this->load->view('includes/admin/sidebar');
+    $this->load->view('pages/admin/' . $page, $data);
+    $this->load->view('includes/admin/modal');
+    $this->load->view('includes/footer');
+}
+
 // end of admin functions
 }
 

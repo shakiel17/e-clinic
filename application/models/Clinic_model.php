@@ -448,5 +448,18 @@
             return $query->result_array();            
         }
 
+        public function updateProfilePicture($code, $fileContent) {
+            $data = [ 'pic' => $fileContent, ];
+            $this->db->where('code', $code);
+            return $this->db->update('docfile', $data);
+        }
+
+        public function updateDoctorsPassword($drcode, $newpassword) {
+            $data = ['password' => $newpassword];
+            $this->db->where('code', $drcode);
+            return $this->db->update('docfile', $data);
+        }
+        
+
     }
 ?>

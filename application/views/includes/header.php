@@ -28,9 +28,12 @@
   <link href="<?=base_url();?>design/assets/js/select2.4.1/select2.min.css" rel="stylesheet">
   <link href="<?=base_url();?>design/assets/js/select2.4.1/select2-bootstrap-5-theme.min.css" rel="stylesheet">
 
+
   <!-- Template Main CSS File -->
+  <link href="<?=base_url();?>design/assets/css/cropper.min.css" rel="stylesheet" />
   <link href="<?=base_url();?>design/assets/css/style.css" rel="stylesheet">
   <link href="<?=base_url();?>design/assets/css/popups.css" rel="stylesheet">
+  
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -40,3 +43,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+?>
