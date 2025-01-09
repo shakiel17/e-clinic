@@ -287,157 +287,125 @@
         </div>
       </div><!-- End Recent Activity -->
 
-      <!-- Budget Report -->
-      <div class="card">
-        <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
+      <!-- Clinic Budget Report -->
+<div class="card">
+  <div class="filter">
+    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      <li class="dropdown-header text-start">
+        <h6>Filter</h6>
+      </li>
+      <li><a class="dropdown-item" href="#">Today</a></li>
+      <li><a class="dropdown-item" href="#">This Month</a></li>
+      <li><a class="dropdown-item" href="#">This Year</a></li>
+    </ul>
+  </div>
 
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
-        </div>
+  <div class="card-body pb-0">
+    <h5 class="card-title">Budget Report <span>| This Month</span></h5>
 
-        <div class="card-body pb-0">
-          <h5 class="card-title">Budget Report <span>| This Month</span></h5>
+    <div id="clinicBudgetChart" style="min-height: 400px;" class="echart"></div>
 
-          <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        var clinicBudgetChart = echarts.init(document.querySelector("#clinicBudgetChart")).setOption({
+          legend: {
+            data: ['Allocated Budget', 'Actual Spending']
+          },
+          radar: {
+            indicator: [
+              { name: 'General Medicine', max: 50000 },
+              { name: 'Pediatrics', max: 30000 },
+              { name: 'Diagnostics', max: 40000 },
+              { name: 'Surgery', max: 60000 },
+              { name: 'Pharmacy', max: 45000 },
+              { name: 'Admin & IT', max: 35000 }
+            ]
+          },
+          series: [{
+            name: 'Budget vs Spending',
+            type: 'radar',
+            data: [
+              {
+                value: [45000, 25000, 35000, 50000, 40000, 30000],
+                name: 'Allocated Budget'
+              },
+              {
+                value: [42000, 28000, 30000, 52000, 37000, 32000],
+                name: 'Actual Spending'
+              }
+            ]
+          }]
+        });
+      });
+    </script>
 
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-                legend: {
-                  data: ['Allocated Budget', 'Actual Spending']
-                },
-                radar: {
-                  // shape: 'circle',
-                  indicator: [{
-                      name: 'Sales',
-                      max: 6500
-                    },
-                    {
-                      name: 'Administration',
-                      max: 16000
-                    },
-                    {
-                      name: 'Information Technology',
-                      max: 30000
-                    },
-                    {
-                      name: 'Customer Support',
-                      max: 38000
-                    },
-                    {
-                      name: 'Development',
-                      max: 52000
-                    },
-                    {
-                      name: 'Marketing',
-                      max: 25000
-                    }
-                  ]
-                },
-                series: [{
-                  name: 'Budget vs spending',
-                  type: 'radar',
-                  data: [{
-                      value: [4200, 3000, 20000, 35000, 50000, 18000],
-                      name: 'Allocated Budget'
-                    },
-                    {
-                      value: [5000, 14000, 28000, 26000, 42000, 21000],
-                      name: 'Actual Spending'
-                    }
-                  ]
-                }]
-              });
-            });
-          </script>
+  </div>
+</div>
+<!-- End Clinic Budget Report -->
 
-        </div>
-      </div><!-- End Budget Report -->
+<!-- Clinic Appointment Distribution -->
+<div class="card">
+  <div class="filter">
+    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      <li class="dropdown-header text-start">
+        <h6>Filter</h6>
+      </li>
+      <li><a class="dropdown-item" href="#">Today</a></li>
+      <li><a class="dropdown-item" href="#">This Month</a></li>
+      <li><a class="dropdown-item" href="#">This Year</a></li>
+    </ul>
+  </div>
 
-      <!-- Website Traffic -->
-      <div class="card">
-        <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
+  <div class="card-body pb-0">
+    <h5 class="card-title">Appointment Distribution <span>| Today</span></h5>
 
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
-        </div>
+    <div id="appointmentChart" style="min-height:400px;" class="echart"></div>
 
-        <div class="card-body pb-0">
-          <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-
-          <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              echarts.init(document.querySelector("#trafficChart")).setOption({
-                tooltip: {
-                  trigger: 'item'
-                },
-                legend: {
-                  top: '5%',
-                  left: 'center'
-                },
-                series: [{
-                  name: 'Access From',
-                  type: 'pie',
-                  radius: ['40%', '70%'],
-                  avoidLabelOverlap: false,
-                  label: {
-                    show: false,
-                    position: 'center'
-                  },
-                  emphasis: {
-                    label: {
-                      show: true,
-                      fontSize: '18',
-                      fontWeight: 'bold'
-                    }
-                  },
-                  labelLine: {
-                    show: false
-                  },
-                  data: [{
-                      value: 1048,
-                      name: 'Search Engine'
-                    },
-                    {
-                      value: 735,
-                      name: 'Direct'
-                    },
-                    {
-                      value: 580,
-                      name: 'Email'
-                    },
-                    {
-                      value: 484,
-                      name: 'Union Ads'
-                    },
-                    {
-                      value: 300,
-                      name: 'Video Ads'
-                    }
-                  ]
-                }]
-              });
-            });
-          </script>
-
-        </div>
-      </div><!-- End Website Traffic -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        echarts.init(document.querySelector("#appointmentChart")).setOption({
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '5%',
+            left: 'center'
+          },
+          series: [{
+            name: 'Appointments',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '18',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 120, name: 'General Consultation' },
+              { value: 80, name: 'Follow-Up' },
+              { value: 60, name: 'Pediatric' },
+              { value: 40, name: 'Surgical Consultation' },
+              { value: 30, name: 'Diagnostics' }
+            ]
+          }]
+        });
+      });
+    </script>
+  </div>
+</div>
+<!-- End Clinic Appointment Distribution -->
 
       <!-- News & Updates Traffic -->
       <div class="card">
@@ -464,7 +432,6 @@
 </main><!-- End #main -->
 
 <script>
-  // Sample data (replace with data fetched from the backend)
 const activityData = [
   {
     time: "24 min",
@@ -504,7 +471,7 @@ const getStatusClass = (status) => {
 // Populate activities
 const populateActivities = (activities) => {
   const container = document.getElementById("activity-container");
-  container.innerHTML = ""; // Clear existing activities
+  container.innerHTML = "";
 
   activities.forEach((activity) => {
     const activityItem = `
@@ -527,7 +494,7 @@ populateActivities(activityData);
 <script>
              document.addEventListener("DOMContentLoaded", () => {
   let today = new Date(); // Current date
-  let currentYear = today.getFullYear(); // Get current year
+  let currentYear = today.getFullYear();
 
   // Function to get the months of the current year
   function getMonthsOfYear(year) {
@@ -538,14 +505,14 @@ populateActivities(activityData);
 
     return months.map((month, index) => ({
       month: month,
-      date: new Date(year, index, 1).toISOString().slice(0, 10), // Format as YYYY-MM-DD
+      date: new Date(year, index, 1).toISOString().slice(0, 10),
     }));
   }
 
   // Function to get the previous year's months
   function getPreviousYearMonths(date) {
-    const previousYear = date.getFullYear() - 1; // Previous year
-    return getMonthsOfYear(previousYear); // Get months of the previous year
+    const previousYear = date.getFullYear() - 1;
+    return getMonthsOfYear(previousYear);
   }
 
   // Initialize current year view data
@@ -556,10 +523,10 @@ populateActivities(activityData);
     new ApexCharts(document.querySelector("#reportsChart"), {
       series: [{
         name: 'Appointments',
-        data: currentViewData.map(month => Math.floor(Math.random() * 100) + 20), // Random data for appointments
+        data: currentViewData.map(month => Math.floor(Math.random() * 100) + 20),
       }, {
         name: 'Patients',
-        data: currentViewData.map(month => Math.floor(Math.random() * 50) + 5), // Random data for patients
+        data: currentViewData.map(month => Math.floor(Math.random() * 50) + 5),
       }],
       chart: {
         height: 350,
@@ -589,7 +556,7 @@ populateActivities(activityData);
         width: 2
       },
       xaxis: {
-        categories: currentViewData.map(month => month.month), // Display month names (January, February, etc.)
+        categories: currentViewData.map(month => month.month),
       },
       tooltip: {
         x: {

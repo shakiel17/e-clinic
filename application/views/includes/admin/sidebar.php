@@ -19,11 +19,6 @@
               <i class="bi bi-circle"></i><span> Doctor Profile</span>
             </a>
           </li>
-          <li>
-            <a href="<?=base_url();?>specialization">
-              <i class="bi bi-circle"></i><span> Specialization</span>
-            </a>
-          </li>    
         </ul>
       </li><!-- End Components Nav -->
     </ul>
