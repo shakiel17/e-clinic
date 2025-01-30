@@ -9,6 +9,7 @@ $address="";
 $ap="";
 $ptrno="";
 $s2no="";
+$docname=$this->session->fullname;
 foreach($items as $item){
     $name=$item['lastname'].", ".$item['firstname']." ".$item['middlename']." ".$item['suffix'];
     $address=$item['address'];
@@ -62,7 +63,7 @@ foreach($items as $item){
     <table width="100%" style="font-size:16px;" cellpadding="1">
         <tr>
             <td width="40%">&nbsp;</td>
-            <td style="border-bottom:1px solid;" align="center"><?=$name;?>, MD</td>
+            <td style="border-bottom:1px solid;" align="center"><?=$docname;?>, MD</td>
         </tr>
         <tr>
             <td width="40%">&nbsp;</td>
