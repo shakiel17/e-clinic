@@ -192,12 +192,13 @@
             $email=$this->input->post('email');
             $cater=$this->input->post('cater');
             $clinic=$this->input->post('days');
+            $unavailable=$this->input->post('date_unavailable');
             $days="-";
             foreach($clinic as $day){
                 $days .=$day;
             }
             $ctime=$this->input->post('times');
-            $data="lastname='$lastname',firstname='$firstname',middlename='$middlename',ext='$suffix',name='$name',specialization='$specialization',tod='$specialization',phicacc='$phicacc',tinbir='$tin',phicacc1='$phicacc',emailaddress='$email',licenseno='$licenseno',ptrno='$ptrno',s2no='$s2no',vatex='$cater',PF='$days',rebates='$ctime' WHERE code='$code'";
+            $data="lastname='$lastname',firstname='$firstname',middlename='$middlename',ext='$suffix',name='$name',specialization='$specialization',tod='$specialization',phicacc='$phicacc',tinbir='$tin',phicacc1='$phicacc',emailaddress='$email',licenseno='$licenseno',ptrno='$ptrno',s2no='$s2no',vatex='$cater',PF='$days',rebates='$ctime',date_unavailable='$unavailable' WHERE code='$code'";
             $result=$this->db->query("UPDATE docfile SET $data");
             if($result){
                 return true;

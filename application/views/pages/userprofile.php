@@ -243,7 +243,12 @@
                         <input name="times" type="text" class="form-control" id="Email" value="<?=$item['rebates'];?>">
                       </div>
                     </div>
-
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Date/s Unavailable</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea name="date_unavailable" class="form-control" rows="3"><?=$item['date_unavailable'];?></textarea>
+                      </div>
+                    </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
