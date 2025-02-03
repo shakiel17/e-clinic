@@ -330,6 +330,10 @@
                           <p class="small fst-italic">                    
                               <?=$details['diagnosis'];?>
                           </p>
+                          <h5 class="card-title">Physical Examination</h5>
+                          <p class="small fst-italic">                    
+                              <?=$details['physical_exam'];?>
+                          </p>
                           <h5 class="card-title">Medications</h5>
                                              
                           <table width="100%" border="0" style="font-size:16px;" cellpadding="1">
