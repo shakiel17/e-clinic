@@ -38,9 +38,16 @@
     }
     function viewPassword(){
       document.getElementById('passwordchange').style = 'display:block';
-    }
+    }      
   </script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  <script>
+    $('.date').datepicker({
+    multidate: true,
+    format: 'dd-mm-yyyy'
+  });
+    </script>
 </body>
 
 </html>

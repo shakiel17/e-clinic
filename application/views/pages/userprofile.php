@@ -246,7 +246,8 @@
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Date/s Unavailable</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="date_unavailable" class="form-control" rows="3"><?=$item['date_unavailable'];?></textarea>
+                        <!-- <textarea name="date_unavailable" class="form-control" rows="3"><?=$item['date_unavailable'];?></textarea> -->
+                         <input type="text" class="form-control date" placeholder="Pick multiple dates" name="date_unavailable" value="<?=$item['date_unavailable'];?>">                         
                       </div>
                     </div>
                     <div class="text-center">

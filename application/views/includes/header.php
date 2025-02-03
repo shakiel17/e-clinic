@@ -33,6 +33,7 @@
   <link href="<?=base_url();?>design/assets/css/cropper.min.css" rel="stylesheet" />
   <link href="<?=base_url();?>design/assets/css/style.css" rel="stylesheet">
   <link href="<?=base_url();?>design/assets/css/popups.css" rel="stylesheet">
+  <link href="<?=base_url();?>design/assets/css/datepicker.css" rel="stylesheet">
   
 
   <!-- =======================================================
