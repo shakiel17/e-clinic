@@ -102,3 +102,4 @@ $route['default_controller'] = 'pages/index';
 $route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['view_test/(:any)'] = 'pages/view_test/$1';

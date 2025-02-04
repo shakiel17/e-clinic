@@ -344,16 +344,35 @@
                 return false;
             }
         }
-        public function getAllDiagnostics($caseno){
-            $result=$this->db->query("SELECT * FROM diagnostics WHERE caseno='$caseno'");
+        public function getAllDiagnostics($caseno,$type){
+            $result=$this->db->query("SELECT * FROM diagnostics WHERE caseno='$caseno' AND `type`='$type'");
             return $result->result_array();            
+        }
+        public function getAllDiagnosticsByType($caseno){
+            $result=$this->db->query("SELECT * FROM diagnostics WHERE caseno='$caseno' GROUP BY `type` ORDER BY `type` ASC");
+            return $result->result_array();            
+        }
+        public function getSingleDiagnostic($id){
+            $result=$this->db->query("SELECT * FROM diagnostics WHERE id='$id'");
+            return $result->row_array();            
         }
         public function save_diagnostic(){
             $caseno=$this->input->post('caseno');
-            $remarks=$this->input->post('remarks');
+            $remarks=$this->input->post('type');            
             $date=date('Y-m-d');
-            $time=date('H:i:s');
-            $result=$this->db->query("INSERT INTO diagnostics(caseno,remarks,datearray,timearray) VALUES('$caseno','$remarks','$date','$time')");
+            $time=date('H:i:s');                                    
+            for($i=0;$i < sizeof($_FILES['file']['name']);$i++){                    
+                $fileName=basename($_FILES["file"]["name"][$i]);
+                $fileType=pathinfo($fileName, PATHINFO_EXTENSION);
+                $allowTypes = array('jpg','png','jpeg','gif');
+                if(in_array($fileType,$allowTypes) && $_FILES['file']['size'][$i] < 128000){
+                    $image = $_FILES["file"]["tmp_name"][$i];
+                    $imgContent=addslashes(file_get_contents($image));
+                    $result=$this->db->query("INSERT INTO diagnostics(caseno,`type`,`image`,datearray,timearray) VALUES('$caseno','$remarks','$imgContent','$date','$time')");            
+                }
+            }
+
+            //$result=$this->db->query("INSERT INTO diagnostics(caseno,remarks,datearray,timearray) VALUES('$caseno','$remarks','$date','$time')");
             if($result){
                 return true;
             }else{

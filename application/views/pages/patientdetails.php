@@ -27,11 +27,13 @@
               <?php
               $status="";
               $lock="";
+              $display="";
               if($item['status']=="Active"){
                 ?>
               <a href="<?=base_url();?>patient_discharged/<?=$item['caseno'];?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you wish to discharge this patient?');return false;"><i class="bi bi-box-arrow-in-up"></i> Discharge</a>
               <?php
               }else{
+                $display="style='display:none;'";
                 $status="disabled";
                 $lock="style='display:none;'";
               }
@@ -290,13 +292,21 @@
 
                 <div class="tab-pane fade <?=$diagnostic_show;?> <?=$diagnostic;?> pt-3" id="profile-settings">                
                     <div class="row mb-3">
-                        <?=form_open(base_url()."add_diagnostic");?>
+                        <?=form_open_multipart(base_url()."add_diagnostic");?>
                         <input type="hidden" name="caseno" value="<?=$item['caseno'];?>">
                         <table width="100%" border="0" cellspacing="2">
                             <tr>
-                                <td><b>Details</b></td>
-                                <td><textarea name="remarks" rows="5" class="form-control"></textarea></td>
-                            </tr>                            
+                                <td><b>Test Type</b></td>
+                                <td><input type="text" name="type" class="form-control" required></td>
+                            </tr> 
+                            <tr>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
+                              </tr> 
+                            <tr>
+                                <td><b>Attachments</b></td>
+                                <td><input type="file" name="file[]" class="form-control" required accept="image/*" multiple></td>
+                            </tr>                          
                             <tr>
                                 <td></td>
                                 <td><br><input type="submit" class="btn btn-primary" value="Submit" <?=$status;?>></td>
@@ -304,16 +314,25 @@
                         </table>
                         <?=form_close();?>
                     </div>
-                          <?php
-                            $details=$this->Clinic_model->getAllDiagnostics($item['caseno']);
+                          <?php                            
+                            $testtype=$this->Clinic_model->getAllDiagnosticsByType($item['caseno']);
                           ?>                          
                           
                           <h5 class="card-title">Diagnostics</h5>
-                          <p class="small fst-italic">
+                          <p class="small fst-italic">                             
                              <?php
-                             foreach($details as $res){
-                              echo "<a href='".base_url('remove_diagnostic/'.$res['id'].'/'.$item['caseno'])."' class='btn btn-danger btn-sm'>X</a> ".$res['remarks']."<br><br>";
+                             foreach($testtype as $ttype){
+                                echo "<b>".$ttype['type']."</b><br><br>";
+                                $details=$this->Clinic_model->getAllDiagnostics($item['caseno'],$ttype['type']);
+                                foreach($details as $res){
+                                  ?>
+                                  <a href="<?=base_url('remove_diagnostic/'.$res['id'].'/'.$item['caseno']);?>" class='btn btn-danger btn-sm' onclick="return confirm('Do you wish to remove this diagnostic?');return false;" title="Remove" <?=$display;?>>X</a> 
+                                  <?php
+                                  echo "<a href='".base_url()."view_test/$res[id]' target='_blank'><img src='data:image/jpg;charset=utf8;base64,".base64_encode($res['image'])."' width='100'></a>&nbsp;&nbsp;";
+                                }
+                                echo "<br><br>";
                              }
+                            
                              ?>
                           </p>
                 </div>
@@ -364,9 +383,23 @@
                           ?>
                       </table>
                           
+                        <?php                            
+                            $testtype=$this->Clinic_model->getAllDiagnosticsByType($casenum);
+                          ?>                          
+                          
                           <h5 class="card-title">Diagnostics</h5>
-                          <p class="small fst-italic">
-                             
+                          <p class="small fst-italic">                             
+                             <?php
+                             foreach($testtype as $ttype){
+                                echo "<b>".$ttype['type']."</b><br><br>";
+                                $details=$this->Clinic_model->getAllDiagnostics($casenum,$ttype['type']);
+                                foreach($details as $res){                                  
+                                  echo "<a href='".base_url()."view_test/$res[id]' target='_blank'><img src='data:image/jpg;charset=utf8;base64,".base64_encode($res['image'])."' width='100'></a>&nbsp;&nbsp;";
+                                }
+                                echo "<br><br>";
+                             }
+                            
+                             ?>
                           </p>
                 </div>
 
