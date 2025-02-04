@@ -365,7 +365,7 @@
                 $fileName=basename($_FILES["file"]["name"][$i]);
                 $fileType=pathinfo($fileName, PATHINFO_EXTENSION);
                 $allowTypes = array('jpg','png','jpeg','gif');
-                if(in_array($fileType,$allowTypes) && $_FILES['file']['size'][$i] < 128000){
+                if(in_array($fileType,$allowTypes) && $_FILES['file']['size'][$i] < 4096000){
                     $image = $_FILES["file"]["tmp_name"][$i];
                     $imgContent=addslashes(file_get_contents($image));
                     $result=$this->db->query("INSERT INTO diagnostics(caseno,`type`,`image`,datearray,timearray) VALUES('$caseno','$remarks','$imgContent','$date','$time')");            
