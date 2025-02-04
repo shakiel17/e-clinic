@@ -258,9 +258,9 @@ date_default_timezone_set('Asia/Manila');
         public function delete_rx($id,$caseno){            
             $add=$this->Clinic_model->delete_rx($id);
             if($add){
-                echo "<script>alert('Rx successfully deleted!');window.location='".base_url()."patientdetails/$caseno';</script>";
+                echo "<script>alert('Rx successfully deleted!');window.location='".base_url()."view_rx/$caseno';</script>";
             }else{
-                echo "<script>alert('Unable to delete Rx!');window.location='".base_url()."patientdetails/$caseno';</script>";
+                echo "<script>alert('Unable to delete Rx!');window.location='".base_url()."view_rx/$caseno';</script>";
             }
         }
         public function print_rx($id){

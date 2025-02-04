@@ -228,8 +228,8 @@
                           foreach($items as $item){
                           ?>
                           <tr>
-                              <td width="10">&nbsp;</td>
-                              <td colspan="2"><?=$item['description'];?><td>
+                              <td width="10"><a href="<?=base_url('delete_rx/'.$item['id'].'/'.$item['caseno']);?>" onclick="return confirm('Do you want to remove this Rx?');return false;"> [X] </a></td>
+                              <td colspan="2">&nbsp;<?=$item['description'];?><td>
                               <td align="right">#<?=$item['quantity'];?></td>
                           </tr>                          
                           <tr>
